@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import "./Dashboard.css"
-// import video from '../../assets/background.mp4'
+import video from '../../video/background.mp4'
 import io from 'socket.io-client';
 import Rooms from "../Rooms/Rooms";
 
 
 let socket: SocketIOClient.Socket;
+
 
 const Dashboard: React.FC = () => {
     const [name, setName] = useState<string>(" ");
@@ -38,9 +39,9 @@ const Dashboard: React.FC = () => {
     return (
         <div data-vide-bg="background">
             <div className="vid-container">
-                {/*<video id="background-video" loop autoPlay>*/}
-                {/*    <source src={video} type="video/mp4"/>*/}
-                {/*</video>*/}
+                <video id="background-video" loop autoPlay>
+                    <source src={video} type="video/mp4"/>
+                </video>
                 <div className="joinContainer">
                     <h1>Come and join us to chat!!</h1>
                     <div className="joinInput">
@@ -57,8 +58,8 @@ const Dashboard: React.FC = () => {
                         </div>
                         <Rooms rooms={rooms}/>
                     </div>
-                    < script src="https://code.jquery.com/jquery-3.4.1.js"/>
-                    <script src="../../jquery.vide.js"/>
+                    <script src="https://code.jquery.com/jquery-3.4.1.js"/>
+                    <script src="vide/jquery.vide.min.js"/>
                 </div>
             </div>
         </div>

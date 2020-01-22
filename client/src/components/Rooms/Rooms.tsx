@@ -1,12 +1,9 @@
+
 import React from 'react';
 import './Rooms.css'
 // import ScrollToBottom from "react-scroll-to-bottom";
 
-interface Props {
-    rooms: string[]
-}
-
-class Rooms extends React.Component<Props, {}> {
+class Rooms extends React.Component<{ rooms: string[] }> {
     render() {
         let {rooms} = this.props;
         return (
@@ -14,7 +11,7 @@ class Rooms extends React.Component<Props, {}> {
                 <div className="roomsBox">
                     <h3>Active rooms:</h3>
                     <div>
-                        {rooms.map((room, i) => <li key={i}> {room} </li>)}
+                        {rooms.map((room: string, i: number) => <li key={i}> {room} </li>)}
                     </div>
                 </div>
             </div>

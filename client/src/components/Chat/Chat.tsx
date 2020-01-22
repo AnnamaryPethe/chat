@@ -3,7 +3,7 @@ import queryString from 'query-string';
 import io from 'socket.io-client';
 
 import './Chat.css';
-// import video from "../../assets/background.mp4"
+import video from "../../video/background2.mp4"
 import InfoBar from "../InfoBar/InfoBar";
 import Messages from "../Messages/Messages";
 import InputBox from "../Message_input/Message_input";
@@ -62,9 +62,9 @@ const Chat: React.FC<Props> = ({location}) => {
     return(
         <div data-vide-bg="background2">
             <div className="vid-container">
-                {/*<video id="background-video" loop autoPlay >*/}
-                {/*    <source src={video} type="video/mp4" />*/}
-                {/*</video>*/}
+                <video id="background-video" loop autoPlay >
+                    <source src={video} type="video/mp4" />
+                </video>
                 <div className="outerContainer">
                     <div className="container">
                         <InfoBar room={room}/>
@@ -73,8 +73,8 @@ const Chat: React.FC<Props> = ({location}) => {
                     </div>
                     <UsersContainer users={names as string[]}/>
                 </div>
-                {/*< script src="https://code.jquery.com/jquery-3.4.1.js"/>*/}
-                {/*<script src="../../jquery.vide.js"/>*/}
+                <script src="https://code.jquery.com/jquery-3.4.1.js"/>
+                <script src="vide/jquery.vide.min.js"/>
             </div>
         </div>
     )
