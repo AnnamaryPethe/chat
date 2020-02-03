@@ -1,9 +1,9 @@
 
 import React from 'react';
 import './Rooms.css'
-// import ScrollToBottom from "react-scroll-to-bottom";
 
 class Rooms extends React.Component<{ rooms: string[] }> {
+
     render() {
         let {rooms} = this.props;
         return (

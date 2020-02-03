@@ -46,11 +46,12 @@ const Chat: React.FC<Props> = ({location}) => {
         });
 
         return () => {
-            socket.emit('disconnect');
+            socket.emit('disconnect', {name, room}, () => {
 
-          //  socket.off();
+            });
         }
     }, [messages]);
+
 
     const sendMessage = (event: any) => {
         event.preventDefault();

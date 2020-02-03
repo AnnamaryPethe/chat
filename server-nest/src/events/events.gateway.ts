@@ -56,15 +56,18 @@ export class EventsGateway {
     @SubscribeMessage('sendMessage')
     onSendMessage(@MessageBody() data: string,
                   @ConnectedSocket() client: Socket): string {
-        console.log(data);
+        // console.log(data);
         const user = this.usersService.getUser(client.id);
-        console.log(user);
+        // console.log(user);
 
         this.server.to(user.room).emit('message', { user: user.name, text: data });
         this.server.to(user.room).emit('roomData', {room: user.room, users: this.usersService.getUserInRoom(user.room)});
 
         return '';
     }
+
+
+
 
 
 

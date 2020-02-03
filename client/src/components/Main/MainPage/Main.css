@@ -1,0 +1,37 @@
+@import '~antd/dist/antd.css';
+
+.card-container > .ant-tabs-card > .ant-tabs-content {
+    height: 120px;
+    margin-top: -16px;
+}
+
+.card-container > .ant-tabs-card > .ant-tabs-content > .ant-tabs-tabpane {
+    background: #fff;
+    padding: 16px;
+}
+
+.card-container > .ant-tabs-card > .ant-tabs-bar {
+    border-color: #fff;
+}
+
+.card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
+    border-color: transparent;
+    background: transparent;
+}
+
+.card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
+    border-color: #fff;
+    background: #fff;
+}
+
+.log-box {
+    align-items: center;
+    justify-content: space-between;
+    background: #bbe1ff;
+    border-radius: 5px 5px 0 0;
+    height: 200px;
+    width: 100%;
+    margin-top: 200px;
+    margin-right: 200px;
+    padding: 20px;
+}

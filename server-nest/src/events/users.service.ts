@@ -11,7 +11,7 @@ export class UsersService {
 
     public add(data: User) {
         this.users.push(data);
-        console.log('Added: ', this.users);
+        // console.log('Added: ', this.users);
     }
 
     public isValidName(data: User): boolean {
@@ -23,10 +23,11 @@ export class UsersService {
         return true;
     }
 
-    public removeUser(data: User) {
-        const index = this.users.findIndex(user => user.id === data.id);
+    public removeUser(id: string){
 
+        const index = this.users.findIndex(user => user.id === id );
         delete this.users[index];
+
     }
 
     public getUser(id: string): User {
@@ -38,7 +39,7 @@ export class UsersService {
     }
 
     public getAllRooms(): Set<string> {
-        console.log('rooms', this.users);
+        // console.log('rooms', this.users);
         const rooms: Set<string> = new Set<string>();
         for (const user of this.users) {
             rooms.add(user.room);

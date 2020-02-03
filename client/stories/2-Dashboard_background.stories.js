@@ -25,6 +25,6 @@ export const chat_background = () => (
     <video id="background-video" loop autoPlay>
         <source src={chat_background_video.src} type="video/mp4"/>
     </video>
-)
+);
 
 
