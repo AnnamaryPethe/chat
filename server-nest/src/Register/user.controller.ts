@@ -14,7 +14,7 @@ import {
 import {UserRegisterDTO} from "./dto/user-register.dto";
 import {RegisterService} from "./register.service";
 import {UserLoginDto} from "./dto/user-login.dto";
-import {ancestorWhere} from "tslint";
+import {CreateResponse} from "./classes/create-response.class";
 
 
 @Controller('user')
@@ -22,29 +22,29 @@ export class UserController {
     constructor(private registerService: RegisterService) {}
 
     @Post()
-    async addUser(@Res() res, @Body() userRegisterDTO: UserRegisterDTO) {
+    async addUser(@Body() userRegisterDTO: UserRegisterDTO): Promise<CreateResponse> {
         console.log(userRegisterDTO);
         await this.registerService.addUser(userRegisterDTO).catch((err: string) => {
             console.log(err);
             throw new BadRequestException({message: err, success: false})
         });
-        return res.status(HttpStatus.OK).json({
-            message: "User has been created.",
+        return {
+            message: 'User has been created.',
             success: true
-        })
+        }
     }
 
     @Post('/login')
-    async login(@Res() res, @Body() userLoginDto: UserLoginDto) {
+    async login(@Body() userLoginDto: UserLoginDto): Promise<CreateResponse> {
 
-        await this.registerService.getUserByEmail(userLoginDto).catch((err: string) => {
+        const isSuccess = await this.registerService.checkUser(userLoginDto).catch((err: string) => {
             console.log(err);
             throw new BadRequestException({message: err, success: false})
         });
-        return res.status(HttpStatus.OK).json({
+        return {
             message: "Login.",
-            success: true
-        })
+            success: isSuccess,
+        }
     }
 
     @Get()

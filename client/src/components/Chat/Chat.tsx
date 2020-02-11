@@ -2,7 +2,6 @@ import * as React from 'react';
 import queryString from 'query-string';
 import io from 'socket.io-client';
 
-import './Chat.css';
 import video from "../../video/background2.mp4"
 import InfoBar from "../InfoBar/InfoBar";
 import Messages from "../Messages/Messages";
@@ -10,9 +9,43 @@ import InputBox from "../Message_input/Message_input";
 import UsersContainer from "../Users_container/Users_container";
 import {IMessage} from "../Message/Message";
 
+import styled from "@emotion/styled";
+
+const OuterContainer = styled.div({
+    position: 'absolute',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+    top:'5%',
+    left: '10%',
+    '@media (min-width: 320px) and (max-width: 480px)': {
+        height: '100%'
+    }
+});
+
+const Container = styled.div({
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    backgroundColor: 'rgba(0,0,255,0.5)',
+    borderRadius: '8px',
+    height: '75%',
+    width: '100%',
+    '@media (min-width: 320px) and (max-width: 480px)': {
+        width: '100%',
+        height: '100%'
+    },
+    '@media (min-width: 480px) and (max-width: 1200px)': {
+        width: '60%'
+    }
+});
+
+
 interface Props {
     location: any
 }
+
 
 let socket: SocketIOClient.Socket;
 
@@ -66,14 +99,14 @@ const Chat: React.FC<Props> = ({location}) => {
                 <video id="background-video" loop autoPlay >
                     <source src={video} type="video/mp4" />
                 </video>
-                <div className="outerContainer">
-                    <div className="container">
+                <OuterContainer>
+                    <Container>
                         <InfoBar room={room}/>
                         <Messages messages={messages} name={name}/>
                         <InputBox message={message as string} setMessage={setMessage} sendMessage={sendMessage}/>
-                    </div>
+                    </Container>
                     <UsersContainer users={names as string[]}/>
-                </div>
+                </OuterContainer>
                 <script src="https://code.jquery.com/jquery-3.4.1.js"/>
                 <script src="vide/jquery.vide.min.js"/>
             </div>

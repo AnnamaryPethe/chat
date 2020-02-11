@@ -1,7 +1,11 @@
 import React, {ChangeEvent, FormEvent} from 'react';
-import {Link} from 'react-router-dom';
 import axios from 'axios';
-import {Alert} from 'antd';
+import { Form, Input } from 'antd';
+import '../MainPage/Main.css';
+import SuccessAlert from "../../Alert/SuccessAlert/SuccessAlert";
+import ErrorAlert from "../../Alert/ErrorAlert/ErrorAlert";
+
+import { jsx } from '@emotion/core'
 
 export interface RegistrationState {
     firstName: string,
@@ -9,6 +13,7 @@ export interface RegistrationState {
     nickname: string,
     email: string,
     password: string,
+    alert_message: string
 }
 
 export class Register extends React.Component<{}, RegistrationState>{
@@ -20,6 +25,7 @@ export class Register extends React.Component<{}, RegistrationState>{
             nickname: "",
             email: "",
             password: "",
+            alert_message: ""
         }
     }
 
@@ -46,6 +52,8 @@ export class Register extends React.Component<{}, RegistrationState>{
 
     handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        console.log('register');
+
         const data = {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
@@ -57,54 +65,46 @@ export class Register extends React.Component<{}, RegistrationState>{
 
         axios.post(`http://localhost:8000/user/`, {data})
             .then(res => {
+                this.setState({alert_message: "success"});
                 console.log(res.data);
-                this.handleRegister(true);
             })
             .catch(error => {
+                this.setState({alert_message: "error"});
                 console.log(error);
-                this.handleRegister(false);
             })
     };
 
-
-    handleRegister = (isSuccess: boolean) => {
-        console.log('hdas');
-        if (isSuccess) {
-            return <div>
-                <Alert
-                    message="Success"
-                    description="Your registration is successfully done."
-                    type="success"
-                />
-            </div>
-        }
-        else {
-            return <div>
-                <Alert
-                    message="Error"
-                    description="Failed registration"
-                    type="error"
-                />
-            </div>
-        }
-    };
 
     render() {
         return(
+
           <div>
-              <h3>Register</h3>
+              <hr/>
+              {this.state.alert_message==="success"?<SuccessAlert/>:null}
+              {this.state.alert_message==="error"?<ErrorAlert/>:null}
+
               <form onSubmit={this.handleSubmit}>
-                  <div>First name: </div>
-                  <input type="text" placeholder="First name" name="firstName" value={this.state.firstName} onChange={this.handleChange}/>
-                  <div>Last name: </div>
-                  <input type="text" placeholder="Last name" name="lastName" value={this.state.lastName } onChange={this.handleChange}/>
-                  <div>Nickname: </div>
-                  <input type="text" placeholder="Nickname" name="nickname" value={this.state.nickname} onChange={this.handleChange}/>
-                  <div>E-mail: </div>
-                  <input type="email" placeholder="Email address" name="email" value={this.state.email} onChange={this.handleChange}/>
-                  <div>Password: </div>
-                  <input type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleChange}/>
-                  <button type="submit">Registration</button>
+                  <Form.Item label="First name: " className="form-size">
+                      <Input type="text" placeholder="First name" name="firstName" value={this.state.firstName} onChange={this.handleChange} required={true}/>
+                  </Form.Item>
+
+                  <Form.Item label="Last name: " className="form-size">
+                      <Input type="text" placeholder="First name" name="lastName" value={this.state.lastName} onChange={this.handleChange} required={true}/>
+                  </Form.Item>
+
+                  <Form.Item label="Nickname: " className="form-size">
+                      <Input type="text" placeholder="Last name" name="nickname" value={this.state.nickname} onChange={this.handleChange} required={true}/>
+                  </Form.Item>
+
+                  <Form.Item label="E-mail:" className="form-size">
+                      <Input type="email" placeholder="Email address" name="email" value={this.state.email} onChange={this.handleChange} required={true}/>
+                  </Form.Item>
+
+                  <Form.Item label="Password:" className="form-size">
+                      <Input type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleChange} required={true}/>
+                  </Form.Item>
+
+                  <button type="submit" >Registration</button>
               </form>
           </div>
 

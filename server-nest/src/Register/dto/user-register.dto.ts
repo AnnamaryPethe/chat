@@ -4,7 +4,7 @@ export class UserRegisterDTO {
         readonly lastName: string;
         readonly nickname: string;
         readonly email: string;
-        readonly password: string;
+        password: string;
         readonly  created: Date;
     }
 }

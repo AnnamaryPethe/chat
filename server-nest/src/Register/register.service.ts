@@ -5,6 +5,7 @@ import {User} from "./interfaces/users.interface";
 import {UserRegisterDTO} from "./dto/user-register.dto";
 import {Login} from "./interfaces/login.interface";
 import {UserLoginDto} from "./dto/user-login.dto";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class RegisterService {
@@ -19,19 +20,20 @@ export class RegisterService {
         return await this.userModel.findById(userId).exec();
    }
 
-   async getUserByEmail(userLoginDto: UserLoginDto): Promise<boolean> {
+   async checkUser(userLoginDto: UserLoginDto): Promise<boolean> {
        return new Promise<boolean>((resolve, reject) => {
-           return this.userModel.findOne({email: userLoginDto.data.email} && {password: userLoginDto.data.password}, function (err, user: Login | null) {
+           this.userModel.findOne({email: userLoginDto.data.email}, function (err, user: Login | null) {
                 if (err) {
                     console.log(err);
-                   reject(err);
+                   return reject(err);
                 }
-                if (user?.email === userLoginDto.data.email && user?.password === userLoginDto.data.password) {
-                  resolve(true)
-                }
-                else {
-                    resolve(false);
-                }
+               console.log(user);
+               bcrypt.compare(userLoginDto.data.password, user.password, ((err1, same) => {
+                    if (err1) {
+                        return reject(err1);
+                    }
+                    return resolve(same);
+                }));
            });
        })
 
@@ -39,15 +41,19 @@ export class RegisterService {
 
    async addUser(userRegisterDTO: UserRegisterDTO): Promise<User | Error> {
        const isExist = await this.checkIfUserExist(userRegisterDTO);
-       console.log(isExist);
        if (!isExist) {
-
-            const newUser = new this.userModel(userRegisterDTO.data);
-            return newUser.save();
+           await bcrypt.hash(userRegisterDTO.data.password, 10, ((err, encrypted) => {
+               if (err) {
+                   return Promise.reject(err);
+               }
+               userRegisterDTO.data.password = encrypted;
+               const newUser = new this.userModel(userRegisterDTO.data);
+               newUser.save();
+           }))
         }
-        else {
+       else {
            return Promise.reject("This email address is already exist. Please try it again.")
-        }
+       }
 
    }
 

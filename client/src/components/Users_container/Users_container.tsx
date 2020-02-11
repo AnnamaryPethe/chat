@@ -1,8 +1,40 @@
 import React from 'react';
-
+import styled from "@emotion/styled";
 import onlineIcon from '../../icons/onlineIcon.png';
 
-import './Users_container.css';
+
+const TextContainer = styled.div({
+    display: 'flex',
+    flexDirection: 'column',
+    marginLeft: '160px',
+    color: 'white',
+    height: '80%',
+    justifyContent: 'space-between',
+    '@media (min-width: 320px) and (max-width: 1200px)': {
+        display: 'none'
+    }
+});
+
+const ActiveContainer = styled.div({
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '90%'
+});
+
+const ActiveItem = styled.div({
+    display: 'flex',
+    alignItems: 'center'
+});
+
+const ActiveImage = styled.img({
+    paddingLeft: '10px'
+});
+
+const TextH1 = styled.h1({
+    marginBottom: '0'
+});
+
+
 
 export interface IUsersProps {
     users: string[]
@@ -12,27 +44,27 @@ class UsersContainer extends React.Component<IUsersProps, {}> {
     render() {
         let {users} = this.props;
         return (
-            <div className="textContainer">
+            <TextContainer className="textContainer">
                 {
                     users
                         ? (
                             <div>
-                                <h1>People currently chatting:</h1>
-                                <div className="activeContainer">
+                                <TextH1>People currently chatting:</TextH1>
+                                <ActiveContainer className="activeContainer">
                                     <h2>
                                         {users.map((name) => (
-                                            <div key={name} className="activeItem">
+                                            <ActiveItem key={name} className="activeItem">
                                                 {name}
-                                                <img alt="Online Icon" src={onlineIcon}/>
-                                            </div>
+                                                <ActiveImage alt="Online Icon" src={onlineIcon}/>
+                                            </ActiveItem>
                                         ))}
                                     </h2>
-                                </div>
+                                </ActiveContainer>
                             </div>
                         )
                         : null
                 }
-            </div>
+            </TextContainer>
         );
     }
 }

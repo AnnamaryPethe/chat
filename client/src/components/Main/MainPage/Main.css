@@ -1,17 +1,53 @@
 @import '~antd/dist/antd.css';
 
 .card-container > .ant-tabs-card > .ant-tabs-content {
-    height: 120px;
+    height: 00px;
     margin-top: -16px;
 }
 
 .card-container > .ant-tabs-card > .ant-tabs-content > .ant-tabs-tabpane {
-    background: #fff;
+    background: #9159ff;
     padding: 16px;
 }
 
+.ant-card {
+    background: rgba(57, 57, 138, 0.22);
+    margin-left: 10px;
+    padding: 20px;
+}
+
+.ant-card-bordered {
+    width: 10%;
+    padding: 15px;
+    text-align: center;
+    font-size: 30px;
+    margin: 10px;
+    box-shadow: 0 15px 20px rgba(255, 255, 255, 0.59);
+}
+
+.ant-input {
+    padding: 20px;
+}
+
+.ant-tabs-tab {
+    color: rgb(14, 5, 41);
+    font-size: 20px;
+}
+
+.ant-card-head-title {
+    font-size: 30px;
+    color: #fbfbfb;
+    background: #9159ff;
+}
+
+.ant-card-body {
+    /*background: #0e0529;*/
+    margin: 20px;
+    padding: 50px;
+}
+
 .card-container > .ant-tabs-card > .ant-tabs-bar {
-    border-color: #fff;
+
 }
 
 .card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
@@ -20,18 +56,30 @@
 }
 
 .card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
-    border-color: #fff;
-    background: #fff;
+    border-color: #9159ff;
+    background: #9159ff;
 }
 
-.log-box {
-    align-items: center;
-    justify-content: space-between;
-    background: #bbe1ff;
-    border-radius: 5px 5px 0 0;
-    height: 200px;
-    width: 100%;
-    margin-top: 200px;
-    margin-right: 200px;
-    padding: 20px;
+.ant-btn-primary {
+    padding: 40px;
+    font-size: 25px;
+    border: 10px;
+
+}
+
+.page {
+    margin: 50px;
+    background: rgba(167, 100, 255, 0.61);
+}
+
+#background-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.form-size {
+    font-size: 20px
 }

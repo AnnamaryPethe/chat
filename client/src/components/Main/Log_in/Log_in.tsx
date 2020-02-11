@@ -1,60 +1,52 @@
 import React, { FormEvent, useState} from 'react';
-import {Link} from "react-router-dom";
+import { Redirect} from "react-router-dom";
 import axios from 'axios';
-import {Alert} from "antd";
+import {Form, Input} from "antd";
+import '../MainPage/Main.css'
 
 export const Log_in: React.FC = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [error, setError] = useState<boolean>(false);
+    const [redirect, setRedirect] = useState<boolean>(false);
 
 
-    const submitHandler = (event: FormEvent<HTMLFormElement>) => {
+    const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         let data = {
             email: email,
             password: password
         };
-        axios.post(`http://localhost:8000/user/login`, {data})
+        console.log(data);
+        await axios.post(`http://localhost:8000/user/login`, {data})
             .then(res => {
-                console.log(res.data);
+                if (res.data.success) {
+                    console.log(res.data.success);
+                    setRedirect(res.data.success);
+                }
             })
             .catch(error => {
                 console.log(error);
-                setError(true);
             })
-    };
-
-    const loginHandler = () => {
-        if (error) {
-            return <div>
-                <Alert
-                    message="Error"
-                    description="Failed registration"
-                    type="error"
-                />
-            </div>
-        }
     };
 
 
     return(
+       <>
+        {redirect ? <Redirect to={'/dashboard'}/>: null}
         <div>
-            <h3>LogIn</h3>
             <form onSubmit={submitHandler}>
             <div>
-                <div>E-mail:</div>
-                <input type="email" placeholder="Email address" onChange={event => setEmail(event.target.value)}/>
-                <div>Password: </div>
-                <input type="password" placeholder="Password" onChange={event => setPassword(event.target.value)}/>
-                <div>
-                    <Link onClick={loginHandler} to={"/dashboard"}>
-                        <button type="submit">Join</button>
-                    </Link>
-                </div>
+                <Form.Item label="E-mail: " className="form-size">
+                    <Input type="email" placeholder="Email address" onChange={event => setEmail(event.target.value)} required={true}/>
+                </Form.Item>
+                <Form.Item label="Password: " className="form-size">
+                    <Input type="password" placeholder="Password" onChange={event => setPassword(event.target.value)} required={true}/>
+                </Form.Item>
+               <button type="submit">  Join  </button>
             </div>
             </form>
         </div>
+       </>
     )
 };
