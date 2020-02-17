@@ -8,38 +8,8 @@ import Messages from "../Messages/Messages";
 import InputBox from "../Message_input/Message_input";
 import UsersContainer from "../Users_container/Users_container";
 import {IMessage} from "../Message/Message";
+import {Video, Container, OuterContainer} from './chat'
 
-import styled from "@emotion/styled";
-
-const OuterContainer = styled.div({
-    position: 'absolute',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    top:'5%',
-    left: '10%',
-    '@media (min-width: 320px) and (max-width: 480px)': {
-        height: '100%'
-    }
-});
-
-const Container = styled.div({
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    backgroundColor: 'rgba(0,0,255,0.5)',
-    borderRadius: '8px',
-    height: '75%',
-    width: '100%',
-    '@media (min-width: 320px) and (max-width: 480px)': {
-        width: '100%',
-        height: '100%'
-    },
-    '@media (min-width: 480px) and (max-width: 1200px)': {
-        width: '60%'
-    }
-});
 
 
 interface Props {
@@ -96,9 +66,9 @@ const Chat: React.FC<Props> = ({location}) => {
     return(
         <div data-vide-bg="background2">
             <div className="vid-container">
-                <video id="background-video" loop autoPlay >
+                <Video className="background-video" loop autoPlay >
                     <source src={video} type="video/mp4" />
-                </video>
+                </Video>
                 <OuterContainer>
                     <Container>
                         <InfoBar room={room}/>

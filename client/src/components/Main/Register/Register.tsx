@@ -1,114 +1,79 @@
-import React, {ChangeEvent, FormEvent} from 'react';
+import React, {FormEvent, useContext, useReducer, useState} from 'react';
 import axios from 'axios';
-import { Form, Input } from 'antd';
+import {Form, Input} from 'antd';
 import '../MainPage/Main.css';
 import SuccessAlert from "../../Alert/SuccessAlert/SuccessAlert";
 import ErrorAlert from "../../Alert/ErrorAlert/ErrorAlert";
+import {reducer, initialState, Action, UserState} from "../../../reducer/reducer";
 
-import { jsx } from '@emotion/core'
+export const Register: React.FC = () => {
 
-export interface RegistrationState {
-    firstName: string,
-    lastName: string,
-    nickname: string,
-    email: string,
-    password: string,
-    alert_message: string
-}
-
-export class Register extends React.Component<{}, RegistrationState>{
-    constructor(props: {}) {
-        super(props);
-        this.state = {
-            firstName: "",
-            lastName: "",
-            nickname: "",
-            email: "",
-            password: "",
-            alert_message: ""
-        }
-    }
-
-    handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        switch (event.target.name) {
-            case 'firstName':
-                this.setState({firstName: event.target.value});
-                break;
-            case 'lastName':
-                this.setState({lastName: event.target.value});
-                break;
-            case 'nickname':
-                this.setState({nickname: event.target.value});
-                break;
-            case 'email':
-                this.setState({email: event.target.value});
-                break;
-            case 'password':
-                this.setState({password: event.target.value});
-                break;
-        }
-    };
+    const [alertMessage, setAlertMessage] = useState<string>('');
+    const [user, dispatch] = useReducer<(state: UserState, action: Action) => UserState>(reducer, initialState);
 
 
-    handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log('register');
 
-        const data = {
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            nickname: this.state.lastName,
-            email: this.state.email,
-            password: this.state.password
-        };
-        console.log(data);
+        console.log("usereducer uses: " + user);
 
-        axios.post(`http://localhost:8000/user/`, {data})
+        axios.post(`http://localhost:8000/user/`, {data: user})
             .then(res => {
-                this.setState({alert_message: "success"});
+                setAlertMessage("success");
                 console.log(res.data);
             })
             .catch(error => {
-                this.setState({alert_message: "error"});
+                setAlertMessage("error");
                 console.log(error);
             })
     };
 
+    return (
+        <div>
+            <hr/>
+            {alertMessage === "success" ? <SuccessAlert/> : null}
+            {alertMessage === "error" ? <ErrorAlert/> : null}
+                <form onSubmit={handleSubmit}>
+                    <Form.Item label="First name: " className="form-size">
+                        <Input type="text" placeholder="First name" name="firstName" value={user.firstName}
+                               onChange={e => {
+                                   dispatch({type: 'firstName', payload: e.target.value})
+                               }} required={true}/>
+                    </Form.Item>
 
-    render() {
-        return(
+                    <Form.Item label="Last name: " className="form-size">
+                        <Input type="text" placeholder="First name" name="lastName" value={user.lastName}
+                               onChange={e => {
+                                   dispatch({type: 'lastName', payload: e.target.value})
+                               }} required={true}/>
+                    </Form.Item>
 
-          <div>
-              <hr/>
-              {this.state.alert_message==="success"?<SuccessAlert/>:null}
-              {this.state.alert_message==="error"?<ErrorAlert/>:null}
+                    <Form.Item label="Nickname: " className="form-size">
+                        <Input type="text" placeholder="Last name" name="nickname" value={user.nickname}
+                               onChange={e => {
+                                   dispatch({type: 'nickname', payload: e.target.value})
+                               }} required={true}/>
+                    </Form.Item>
 
-              <form onSubmit={this.handleSubmit}>
-                  <Form.Item label="First name: " className="form-size">
-                      <Input type="text" placeholder="First name" name="firstName" value={this.state.firstName} onChange={this.handleChange} required={true}/>
-                  </Form.Item>
+                    <Form.Item label="E-mail:" className="form-size">
+                        <Input type="email" placeholder="Email address" name="email" value={user.email} onChange={e => {
+                            dispatch({type: 'email', payload: e.target.value})
+                        }} required={true}/>
+                    </Form.Item>
 
-                  <Form.Item label="Last name: " className="form-size">
-                      <Input type="text" placeholder="First name" name="lastName" value={this.state.lastName} onChange={this.handleChange} required={true}/>
-                  </Form.Item>
+                    <Form.Item label="Password:" className="form-size">
+                        <Input type="password" placeholder="Password" name="password" value={user.password}
+                               onChange={e => {
+                                   dispatch({type: 'password', payload: e.target.value})
+                               }} required={true}/>
+                    </Form.Item>
 
-                  <Form.Item label="Nickname: " className="form-size">
-                      <Input type="text" placeholder="Last name" name="nickname" value={this.state.nickname} onChange={this.handleChange} required={true}/>
-                  </Form.Item>
+                    <button type="submit">Registration</button>
+                </form>
+        </div>
 
-                  <Form.Item label="E-mail:" className="form-size">
-                      <Input type="email" placeholder="Email address" name="email" value={this.state.email} onChange={this.handleChange} required={true}/>
-                  </Form.Item>
+    )
 
-                  <Form.Item label="Password:" className="form-size">
-                      <Input type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleChange} required={true}/>
-                  </Form.Item>
 
-                  <button type="submit" >Registration</button>
-              </form>
-          </div>
-
-        )
-    }
-
-}
+};

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Register, RegistrationState} from "../Register/Register";
+import {Register} from "../Register/Register";
 import {Tabs, Card,} from 'antd';
 import {Log_in} from "../Log_in/Log_in";
 import {Layout} from 'antd';
@@ -14,22 +14,42 @@ let StyleH3 = styled.h3({
     fontSize: '35px',
 });
 
+const Video = styled.video({
+    position: 'fixed',
+    right: '0',
+    bottom: '0',
+    minWidth: '100%',
+    minHeight: '100%'
+});
+
 
 const {TabPane} = Tabs;
 
-class Main_page extends React.Component<RegistrationState, {}> {
+
+
+class Main_page extends React.Component<{}, {}> {
+    state = {
+        user: {
+            firstName: '',
+            lastName: '',
+            nickname: '',
+            email: '',
+            password: ''
+        }
+    };
+
 
     render() {
         const {Content} = Layout;
         return (
             <div>
                 <Layout className="layout">
-                    <Content css={{ padding: 10 }}>
+                    <Content style={{ padding: 10 }}>
                         <div style={{padding: 24, minHeight: 30}}>
                             <div className="vid-container">
-                                <video id="background-video" loop autoPlay>
+                                <Video className="background-video" loop autoPlay>
                                     <source src={video} type="video/mp4"/>
-                                </video>
+                                </Video>
                                 <div className="page">
                                     <div className="card-container">
                                         <Card
@@ -58,7 +78,7 @@ class Main_page extends React.Component<RegistrationState, {}> {
                                                     <Log_in/>
                                                 </TabPane>
                                                 <TabPane tab="Registration" key="2">
-                                                    <Register/>
+                                                    <Register />
                                                 </TabPane>
                                             </Tabs>
                                         </Card>

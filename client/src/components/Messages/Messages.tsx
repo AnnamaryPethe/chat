@@ -1,15 +1,9 @@
 import React from 'react';
 import Message, {IMessage} from '../Message/Message';
-
-import styled from "@emotion/styled";
+import {Div} from './messages'
 
 // import ScrollToBottom from 'react-scroll-to-bottom';
 
-const Div = styled.div({
-    padding: '5% 0',
-    overflow: 'auto',
-    flex: 'auto'
-});
 
 interface IMessages {
     messages: IMessage[],

@@ -8,6 +8,7 @@ export const Log_in: React.FC = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [redirect, setRedirect] = useState<boolean>(false);
+    const [id, setId] = useState<string>('');
 
 
     const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
@@ -18,10 +19,11 @@ export const Log_in: React.FC = () => {
             password: password
         };
         console.log(data);
-        await axios.post(`http://localhost:8000/user/login`, {data})
+        axios.post(`http://localhost:8000/user/login`, {data})
             .then(res => {
                 if (res.data.success) {
                     console.log(res.data.success);
+                    setId(res.data.id);
                     setRedirect(res.data.success);
                 }
             })
@@ -33,7 +35,7 @@ export const Log_in: React.FC = () => {
 
     return(
        <>
-        {redirect ? <Redirect to={'/dashboard'}/>: null}
+        {redirect ? <Redirect to={`/dashboard/${id}`}/>: null}
         <div>
             <form onSubmit={submitHandler}>
             <div>

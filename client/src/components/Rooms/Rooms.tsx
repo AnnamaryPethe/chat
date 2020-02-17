@@ -1,25 +1,5 @@
 import React from 'react';
-
-import styled from "@emotion/styled";
-
-let H3 = styled.h3({
-    color: "white"
-});
-
-let RoomBox = styled.div({
-    position: 'absolute',
-    top: '0',
-    left: '-100%',
-    transform: 'translate(-50%, -50%)',
-    width: '150px',
-    padding: '60px 40px',
-    boxShadow: '0 15px 20px rgba(255, 255, 255, 0.59)',
-    color: 'white'
-});
-
-const Li = styled.li({
-    color: 'white'
-});
+import {H3, Li, RoomBox} from "./rooms";
 
 class Rooms extends React.Component<{ rooms: string[] }> {
 

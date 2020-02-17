@@ -1,39 +1,6 @@
 import React from 'react';
-import styled from "@emotion/styled";
 import onlineIcon from '../../icons/onlineIcon.png';
-
-
-const TextContainer = styled.div({
-    display: 'flex',
-    flexDirection: 'column',
-    marginLeft: '160px',
-    color: 'white',
-    height: '80%',
-    justifyContent: 'space-between',
-    '@media (min-width: 320px) and (max-width: 1200px)': {
-        display: 'none'
-    }
-});
-
-const ActiveContainer = styled.div({
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: '90%'
-});
-
-const ActiveItem = styled.div({
-    display: 'flex',
-    alignItems: 'center'
-});
-
-const ActiveImage = styled.img({
-    paddingLeft: '10px'
-});
-
-const TextH1 = styled.h1({
-    marginBottom: '0'
-});
-
+import {ActiveContainer, ActiveImage, ActiveItem, TextContainer, TextH1} from "./user_container";
 
 
 export interface IUsersProps {

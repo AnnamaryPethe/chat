@@ -15,6 +15,7 @@ import {UserRegisterDTO} from "./dto/user-register.dto";
 import {RegisterService} from "./register.service";
 import {UserLoginDto} from "./dto/user-login.dto";
 import {CreateResponse} from "./classes/create-response.class";
+import {Login_user} from "./interfaces/login_user.interface";
 
 
 @Controller('user')
@@ -37,13 +38,14 @@ export class UserController {
     @Post('/login')
     async login(@Body() userLoginDto: UserLoginDto): Promise<CreateResponse> {
 
-        const isSuccess = await this.registerService.checkUser(userLoginDto).catch((err: string) => {
+        const result = await this.registerService.checkUser(userLoginDto).catch((err: string) => {
             console.log(err);
             throw new BadRequestException({message: err, success: false})
         });
         return {
             message: "Login.",
-            success: isSuccess,
+            success: result.success,
+            id: result.id,
         }
     }
 
@@ -53,9 +55,11 @@ export class UserController {
         return res.status(HttpStatus.OK).json(users);
     }
 
-    @Get('/:userId')
-    async getUser(@Res() res, @Param('userId') userId): Promise<any[]> {
-        const user = await this.registerService.getUser(userId);
+    @Get('/:id')
+    async getUser(@Res() res, @Param('id') id): Promise<any[]> {
+        console.log(id);
+        const user = await this.registerService.getUser(id);
+        console.log(user);
         if(!user) throw new NotFoundException('User does not exist');
         return res.status(HttpStatus.OK).json(user);
     }

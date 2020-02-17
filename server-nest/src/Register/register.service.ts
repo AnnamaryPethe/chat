@@ -6,6 +6,7 @@ import {UserRegisterDTO} from "./dto/user-register.dto";
 import {Login} from "./interfaces/login.interface";
 import {UserLoginDto} from "./dto/user-login.dto";
 import * as bcrypt from 'bcrypt';
+import {Login_user} from "./interfaces/login_user.interface";
 
 @Injectable()
 export class RegisterService {
@@ -16,12 +17,12 @@ export class RegisterService {
        return await this.userModel.find().exec();
    }
 
-   async getUser(userId): Promise<User> {
-        return await this.userModel.findById(userId).exec();
+   async getUser(id): Promise<User> {
+        return await this.userModel.findById(id).exec();
    }
 
-   async checkUser(userLoginDto: UserLoginDto): Promise<boolean> {
-       return new Promise<boolean>((resolve, reject) => {
+   async checkUser(userLoginDto: UserLoginDto): Promise<Login_user> {
+       return new Promise<Login_user>((resolve, reject) => {
            this.userModel.findOne({email: userLoginDto.data.email}, function (err, user: Login | null) {
                 if (err) {
                     console.log(err);
@@ -32,7 +33,7 @@ export class RegisterService {
                     if (err1) {
                         return reject(err1);
                     }
-                    return resolve(same);
+                    return resolve({success: same, id: user.id});
                 }));
            });
        })
