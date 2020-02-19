@@ -11,15 +11,15 @@ export const Profile: React.FC = () => {
 
         <Container>
             <ProfileContainer>
-                <p>First name:
-                    <div> - {firstName}</div>
-                </p>
-                <p>Last name:
-                    <div> - {lastName}</div>
-                </p>
-                <p>Nickname:
-                    <div> - {nickname}</div>
-                </p>
+                <div>First name:
+                    <p> - {firstName}</p>
+                </div>
+                <div>Last name:
+                    <p> - {lastName}</p>
+                </div>
+                <div>Nickname:
+                    <p> - {nickname}</p>
+                </div>
             </ProfileContainer>
         </Container>
 

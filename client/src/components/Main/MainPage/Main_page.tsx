@@ -54,12 +54,12 @@ class Main_page extends React.Component<{}, {}> {
                                     <div className="card-container">
                                         <Card
                                             style={{
-                                            width: '80%',
-                                            paddingLeft: '10px',
+                                            width: '50%',
+                                            paddingLeft: '40px',
                                             textAlign: 'center',
                                             fontSize: '20px',
-                                            margin: '150px',
-                                            padding: '30px',
+                                            margin: '300px',
+                                            padding: '20px',
                                             backgroundImage: '#5529ff',
                                         }} title="LET'S CHAT!"
                                               bodyStyle={{
@@ -72,7 +72,7 @@ class Main_page extends React.Component<{}, {}> {
                                                     fontSize: '35px',
                                                 }
                                                 }
-                                            >Join us! Log in or sign up to chat!</StyleH3>
+                                            >Join us! Log in or sign in to chat!</StyleH3>
                                             <Tabs type="card">
                                                 <TabPane tab="LogIn" key="1">
                                                     <Log_in/>

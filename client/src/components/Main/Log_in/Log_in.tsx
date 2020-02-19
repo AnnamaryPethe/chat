@@ -3,6 +3,7 @@ import { Redirect} from "react-router-dom";
 import axios from 'axios';
 import {Form, Input} from "antd";
 import '../MainPage/Main.css'
+import {Button} from "./login.style";
 
 export const Log_in: React.FC = () => {
     const [email, setEmail] = useState<string>("");
@@ -45,7 +46,7 @@ export const Log_in: React.FC = () => {
                 <Form.Item label="Password: " className="form-size">
                     <Input type="password" placeholder="Password" onChange={event => setPassword(event.target.value)} required={true}/>
                 </Form.Item>
-               <button type="submit">  Join  </button>
+               <Button type="submit">  Join  </Button>
             </div>
             </form>
         </div>

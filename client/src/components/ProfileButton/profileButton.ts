@@ -28,7 +28,7 @@ export const LinkButton = styled.div({
     height: '40px',
     padding: '10px',
     boxSizing: 'border-box',
-    width: '100%',
+    width: '40%',
     border: '1px solid rgb(255, 255, 255)',
     color: 'rgb(255, 255, 255)',
     cursor: 'pointer',

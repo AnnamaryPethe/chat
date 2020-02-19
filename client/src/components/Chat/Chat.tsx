@@ -9,7 +9,8 @@ import InputBox from "../Message_input/Message_input";
 import UsersContainer from "../Users_container/Users_container";
 import {IMessage} from "../Message/Message";
 import {Video, Container, OuterContainer} from './chat'
-
+import {useContext} from "react";
+import UserContext, {User} from "../../context/UserContext";
 
 
 interface Props {
@@ -26,6 +27,7 @@ const Chat: React.FC<Props> = ({location}) => {
     const [messages, setMessages] = React.useState<IMessage[]>([]);
     const [names, setNames] = React.useState<string[]>([]);
     const ENDPOINT = 'localhost:8000';
+    const nickname = useContext<Partial<User>>(UserContext);
 
     React.useEffect(() => {
         const {name, room} = queryString.parse(location.search);
@@ -66,6 +68,7 @@ const Chat: React.FC<Props> = ({location}) => {
     return(
         <div data-vide-bg="background2">
             <div className="vid-container">
+                {/*<h3>Let's chat {nickname}</h3>*/}
                 <Video className="background-video" loop autoPlay >
                     <source src={video} type="video/mp4" />
                 </Video>

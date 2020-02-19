@@ -15,24 +15,23 @@ export const ProfileButton: React.FC = () => {
     };
 
     return (
-        <ProfileContainer>
-            <Text>
-                Hello {context.nickname}, welcome!
-            </Text>
-            <LinkButton>
+            <ProfileContainer>
+                <Text>
+                    Hello {context.nickname}, welcome!
+                </Text>
+                <LinkButton>
 
                     <div onClick={() => onClick()}>
                         Click me to show/hide your profile
                     </div>
                     {
                         isShow
-                            ? <Profile />
+                            ? <Profile/>
                             : null
                     }
 
-            </LinkButton>
-        </ProfileContainer>
-
+                </LinkButton>
+            </ProfileContainer>
     );
 
 };

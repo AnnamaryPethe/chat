@@ -1,15 +1,5 @@
 @import '~antd/dist/antd.css';
 
-.card-container > .ant-tabs-card > .ant-tabs-content {
-    height: 00px;
-    margin-top: -16px;
-}
-
-.card-container > .ant-tabs-card > .ant-tabs-content > .ant-tabs-tabpane {
-    background: #9159ff;
-    padding: 16px;
-}
-
 .ant-card {
     background: rgba(57, 57, 138, 0.22);
     margin-left: 10px;
@@ -17,11 +7,11 @@
 }
 
 .ant-card-bordered {
-    width: 10%;
-    padding: 15px;
+    width: 60%;
+    padding: 50px;
     text-align: center;
     font-size: 30px;
-    margin: 10px;
+    margin: 80px;
     box-shadow: 0 15px 20px rgba(255, 255, 255, 0.59);
 }
 
@@ -37,27 +27,11 @@
 .ant-card-head-title {
     font-size: 30px;
     color: #fbfbfb;
-    background: #9159ff;
 }
 
 .ant-card-body {
-    /*background: #0e0529;*/
     margin: 20px;
     padding: 50px;
-}
-
-.card-container > .ant-tabs-card > .ant-tabs-bar {
-
-}
-
-.card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
-    border-color: transparent;
-    background: transparent;
-}
-
-.card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
-    border-color: #9159ff;
-    background: #9159ff;
 }
 
 .ant-btn-primary {
@@ -68,7 +42,7 @@
 }
 
 .page {
-    margin: 50px;
+    margin: 70px;
     background: rgba(167, 100, 255, 0.61);
 }
 

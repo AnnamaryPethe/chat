@@ -5,6 +5,7 @@ import '../MainPage/Main.css';
 import SuccessAlert from "../../Alert/SuccessAlert/SuccessAlert";
 import ErrorAlert from "../../Alert/ErrorAlert/ErrorAlert";
 import {reducer, initialState, Action, UserState} from "../../../reducer/reducer";
+import {Button} from "../Log_in/login.style";
 
 export const Register: React.FC = () => {
 
@@ -69,7 +70,7 @@ export const Register: React.FC = () => {
                                }} required={true}/>
                     </Form.Item>
 
-                    <button type="submit">Registration</button>
+                    <Button type="submit">Registration</Button>
                 </form>
         </div>
 

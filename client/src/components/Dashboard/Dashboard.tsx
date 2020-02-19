@@ -5,8 +5,9 @@ import io from 'socket.io-client';
 import Rooms from "../Rooms/Rooms";
 import {JoinContainer, Video, Input, Button, DivBody, JoinContainerH1, JoinInput} from './dashboard'
 import axios from 'axios';
-import UserContext, {User} from "../../context/UserContext";
-import { ProfileButton } from '../ProfileButton/ProfileButton';
+import {User, UserContext} from '../../context/UserContext';
+import {ProfileButton} from "../ProfileButton/ProfileButton";
+
 
 let socket: SocketIOClient.Socket;
 
@@ -21,10 +22,6 @@ const Dashboard: React.FC<User> = () => {
     const [nickname, setNickname] = useState("");
     const {id} = useParams();
     const history = useHistory();
-
-    const goBackHandler = () => {
-        history.goBack();
-    };
 
 
     useEffect(() => {
@@ -53,7 +50,8 @@ const Dashboard: React.FC<User> = () => {
                 alert(error.error);
                 return;
             }
-            window.location.replace(`/chat?name=${name}&room=${room}`);
+            // window.location.replace(`/chat/${id}?name=${name}&room=${room}`);
+            history.push(`/chat/${id}?name=${name}&room=${room}`)
         });
     };
 
@@ -65,7 +63,6 @@ const Dashboard: React.FC<User> = () => {
             </UserContext.Provider>
             <Button>
                 <p>If you are sure, click button to log out!</p>
-                <button onClick={goBackHandler}> Log out</button>
             </Button>
             <DivBody>
                 <div>
