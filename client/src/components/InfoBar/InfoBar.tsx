@@ -14,7 +14,7 @@ const InfoBar: React.FC<Props> = ({room}) => (
             <h3>{room}</h3>
         </LeftInnerContainer>
         <RightInnerContainer >
-            <a href="/dashboard"><img src={closeIcon} alt="close"/></a>
+            <a href="/dashboard/id"><img src={closeIcon} alt="close"/></a>
         </RightInnerContainer>
     </InfoBarStyle>
 );

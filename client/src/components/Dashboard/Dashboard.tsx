@@ -1,12 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useHistory, useParams} from 'react-router-dom';
 import backgroundVideo from '../../video/background.mp4'
 import io from 'socket.io-client';
 import Rooms from "../Rooms/Rooms";
 import {JoinContainer, Video, Input, Button, DivBody, JoinContainerH1, JoinInput} from './dashboard'
 import axios from 'axios';
 import UserContext, {User} from "../../context/UserContext";
-import {Navbar} from "../Navbar/Navbar";
+import { ProfileButton } from '../ProfileButton/ProfileButton';
 
 let socket: SocketIOClient.Socket;
 
@@ -20,6 +20,11 @@ const Dashboard: React.FC<User> = () => {
     const [lastName, setLastName] = useState("");
     const [nickname, setNickname] = useState("");
     const {id} = useParams();
+    const history = useHistory();
+
+    const goBackHandler = () => {
+        history.goBack();
+    };
 
 
     useEffect(() => {
@@ -56,9 +61,12 @@ const Dashboard: React.FC<User> = () => {
     return (
         <div >
             <UserContext.Provider value={{firstName, lastName, nickname}}>
-                <Navbar/>
+                <ProfileButton/>
             </UserContext.Provider>
-
+            <Button>
+                <p>If you are sure, click button to log out!</p>
+                <button onClick={goBackHandler}> Log out</button>
+            </Button>
             <DivBody>
                 <div>
                     <div data-vide-bg="background">

@@ -6,7 +6,7 @@ export const DivBody = styled.div({
     margin: '0',
     width: '100%',
     height: '100vh',
-    background: '#f9f9f9'
+    background: '#131C49'
 });
 
 export const JoinContainer = styled.div({
