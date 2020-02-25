@@ -9,14 +9,13 @@ import {
     NotFoundException,
     Query,
     Put,
-    Delete, BadRequestException
+    Delete, BadRequestException,
 } from '@nestjs/common';
-import {UserRegisterDTO} from "./dto/user-register.dto";
-import {RegisterService} from "./register.service";
-import {UserLoginDto} from "./dto/user-login.dto";
-import {CreateResponse} from "./classes/create-response.class";
-import {Login_user} from "./interfaces/login_user.interface";
-
+import {UserRegisterDTO} from './dto/user-register.dto';
+import {RegisterService} from './register.service';
+import {UserLoginDto} from './dto/user-login.dto';
+import {CreateResponse} from './classes/create-response.class';
+import {Login_user} from './interfaces/login_user.interface';
 
 @Controller('user')
 export class UserController {
@@ -24,29 +23,30 @@ export class UserController {
 
     @Post()
     async addUser(@Body() userRegisterDTO: UserRegisterDTO): Promise<CreateResponse> {
+        // tslint:disable-next-line:no-console
         console.log(userRegisterDTO);
         await this.registerService.addUser(userRegisterDTO).catch((err: string) => {
+            // tslint:disable-next-line:no-console
             console.log(err);
-            throw new BadRequestException({message: err, success: false})
+            throw new BadRequestException({message: err, success: false});
         });
         return {
             message: 'User has been created.',
-            success: true
-        }
+            success: true,
+        };
     }
 
     @Post('/login')
     async login(@Body() userLoginDto: UserLoginDto): Promise<CreateResponse> {
 
         const result = await this.registerService.checkUser(userLoginDto).catch((err: string) => {
-            console.log(err);
-            throw new BadRequestException({message: err, success: false})
+            throw new BadRequestException({message: err, success: false});
         });
         return {
-            message: "Login.",
+            message: 'Login.',
             success: result.success,
             id: result.id,
-        }
+        };
     }
 
     @Get()
@@ -57,25 +57,23 @@ export class UserController {
 
     @Get('/:id')
     async getUser(@Res() res, @Param('id') id): Promise<any[]> {
-        console.log(id);
         const user = await this.registerService.getUser(id);
-        console.log(user);
-        if(!user) throw new NotFoundException('User does not exist');
+        if (!user) { throw new NotFoundException('User does not exist'); }
         return res.status(HttpStatus.OK).json(user);
     }
 
     @Put()
-    async updateUser(@Res() res, @Query('userId') userId, @Body() userRegisterDTO: UserRegisterDTO):Promise<any[]> {
+    async updateUser(@Res() res, @Query('userId') userId, @Body() userRegisterDTO: UserRegisterDTO): Promise<any[]> {
         const user = await this.registerService.updateUser(userId, userRegisterDTO);
-        if(!user) throw new NotFoundException('User does not exist');
-        return res.status(HttpStatus.OK).json({message: "User has been updated", user});
+        if (!user) { throw new NotFoundException('User does not exist'); }
+        return res.status(HttpStatus.OK).json({message: 'User has been updated', user});
     }
 
     @Delete()
-    async deleteUser(@Res() res, @Query("userId") userId): Promise<any[]> {
+    async deleteUser(@Res() res, @Query('userId') userId): Promise<any[]> {
         const user = await this.registerService.deleteUser(userId);
-        if(!user) throw new NotFoundException('User does not exist');
-        return res.status(HttpStatus.OK).json({message: "User has been deleted", user});
+        if (!user) { throw new NotFoundException('User does not exist'); }
+        return res.status(HttpStatus.OK).json({message: 'User has been deleted', user});
     }
 
 }

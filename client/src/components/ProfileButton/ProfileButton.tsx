@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import UserContext, {User} from "../../context/UserContext";
-import {LinkButton, ProfileContainer, Text} from "./profileButton";
+import {LinkButton, ProfileContainer, Text} from "./profileButton-style";
 import {Link, useParams} from "react-router-dom";
 import {Profile} from "../Profile/Profile";
 

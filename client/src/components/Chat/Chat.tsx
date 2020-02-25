@@ -8,7 +8,7 @@ import Messages from "../Messages/Messages";
 import InputBox from "../Message_input/Message_input";
 import UsersContainer from "../Users_container/Users_container";
 import {IMessage} from "../Message/Message";
-import {Video, Container, OuterContainer} from './chat'
+import {Video, Container, OuterContainer} from './chat-style'
 import {useContext} from "react";
 import UserContext, {User} from "../../context/UserContext";
 

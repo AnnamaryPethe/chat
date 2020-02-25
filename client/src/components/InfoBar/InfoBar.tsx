@@ -1,7 +1,7 @@
 import React from 'react'
 import closeIcon from '../../icons/closeIcon.png'
 import onlineIcon from '../../icons/onlineIcon.png'
-import {InfoBarStyle, LeftInnerContainer, OnlineIcon, RightInnerContainer} from "./infobar";
+import {InfoBarStyle, LeftInnerContainer, OnlineIcon, RightInnerContainer} from "./infobar-style";
 import {Link, useParams} from "react-router-dom";
 
 interface Props {

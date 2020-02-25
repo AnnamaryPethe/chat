@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Container, ProfileContainer} from './profile'
+import {Container, ProfileContainer} from './profile-style'
 import UserContext, {User} from "../../context/UserContext";
 
 export const Profile: React.FC = () => {

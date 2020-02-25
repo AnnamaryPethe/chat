@@ -5,7 +5,7 @@ import {
     MessageContainerJustifyStart, MessageTextColorDark,
     MessageTextColorWhite, SentTextPl10,
     SentTextPr10
-} from "./message";
+} from "./message-style";
 // import ReactEmoji from 'react-emoji';
 
 export interface IMessage {

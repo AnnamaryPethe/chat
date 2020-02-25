@@ -1,6 +1,6 @@
 import React from 'react';
 import Message, {IMessage} from '../Message/Message';
-import {Div} from './messages'
+import {Div} from './messages-style'
 
 // import ScrollToBottom from 'react-scroll-to-bottom';
 

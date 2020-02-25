@@ -1,6 +1,6 @@
 import React from 'react';
 import onlineIcon from '../../icons/onlineIcon.png';
-import {ActiveContainer, ActiveImage, ActiveItem, TextContainer, TextH1} from "./user_container";
+import {ActiveContainer, ActiveImage, ActiveItem, TextContainer, TextH1} from "./user_container-style";
 
 
 export interface IUsersProps {

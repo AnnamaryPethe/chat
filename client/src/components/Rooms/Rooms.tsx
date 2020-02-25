@@ -1,5 +1,5 @@
 import React from 'react';
-import {H3, Li, RoomBox} from "./rooms";
+import {H3, Li, RoomBox} from "./rooms-style";
 
 class Rooms extends React.Component<{ rooms: string[] }> {
 

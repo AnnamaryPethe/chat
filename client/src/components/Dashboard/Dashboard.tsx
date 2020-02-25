@@ -1,10 +1,9 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link, useHistory, useParams} from 'react-router-dom';
 import backgroundVideo from '../../video/background.mp4'
 import io from 'socket.io-client';
 import Rooms from "../Rooms/Rooms";
-import {JoinContainer, Video, Input, Button, DivBody, JoinContainerH1, JoinInput} from './dashboard'
-import axios from 'axios';
+import {JoinContainer, Video, Input, Button, DivBody, JoinContainerH1, JoinInput} from './dashboard-style'
 import {User, UserContext} from '../../context/UserContext';
 import {ProfileButton} from "../ProfileButton/ProfileButton";
 
@@ -17,32 +16,20 @@ const Dashboard: React.FC<User> = () => {
     const [room, setRoom] = useState<string>(" ");
     const [rooms, setRooms] = useState<string[]>([]);
     const SERVER_PORT: string = "localhost:8000";
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [nickname, setNickname] = useState("");
     const {id} = useParams();
     const history = useHistory();
 
 
     useEffect(() => {
-        console.log(id);
-        axios.get(`http://localhost:8000/user/${id}`,)
-            .then(res => {
-                console.log(res.data);
-                setFirstName(res.data.firstName);
-                setLastName(res.data.lastName);
-                setNickname(res.data.nickname);
-            });
-
         socket = io(SERVER_PORT);
 
         socket.emit('rooms', {room});
-        socket.on('roomArray', function (rooms: string[]) {
+        socket.on('roomArray', (rooms: string[]) => {
             setRooms(rooms);
         })
     }, [SERVER_PORT]);
 
-    const handleJoin = function (event: React.MouseEvent<HTMLElement>) {
+    const handleJoin = (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
         socket.emit('checkName', {name, room}, (error: any) => {
@@ -57,10 +44,8 @@ const Dashboard: React.FC<User> = () => {
 
 
     return (
-        <div >
-            <UserContext.Provider value={{firstName, lastName, nickname}}>
-                <ProfileButton/>
-            </UserContext.Provider>
+        <div>
+            <ProfileButton/>
             <Button>
                 <p>If you are sure, click button to log out!</p>
             </Button>
