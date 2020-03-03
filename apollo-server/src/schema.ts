@@ -14,6 +14,7 @@ export const typeDefs: DocumentNode = gql`
     
     type Query {
         users: [User!]!
+        user(id: ID): User
     }
     
     input CreateUserInput {
@@ -24,8 +25,13 @@ export const typeDefs: DocumentNode = gql`
         password: String
     }
     
+    type Response {
+        message: String
+        success: Boolean
+    }
+    
     type Mutation {
-        createUser(data: CreateUserInput): User
+        createUser(data: CreateUserInput): Response
     }
    
 `;

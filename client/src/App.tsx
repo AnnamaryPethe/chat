@@ -20,7 +20,6 @@ const App: React.FC = () => {
                 </Provider>
             </Switch>
         </Router>
-
     );
 };
 

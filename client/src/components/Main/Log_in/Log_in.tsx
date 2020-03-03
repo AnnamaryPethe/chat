@@ -12,7 +12,7 @@ export const Log_in: React.FC = () => {
     const [id, setId] = useState<string>('');
 
 
-    const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
+    const submitHandler = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         let data = {
