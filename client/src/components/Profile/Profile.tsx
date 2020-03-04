@@ -4,21 +4,21 @@ import UserContext, {User} from "../../context/UserContext";
 
 export const Profile: React.FC = () => {
 
-    const {firstName, lastName, nickname} = useContext<Partial<User>>(UserContext);
-    console.log(firstName);
+    const data = useContext<Partial<User | undefined>>(UserContext);
+    console.log(data?.data?.user);
 
     return (
 
         <Container>
             <ProfileContainer>
-                <div>First name:
-                    <p> - {firstName}</p>
+                <div> First name:
+                    <p>😃 {data?.data?.user.firstName}</p>
                 </div>
-                <div>Last name:
-                    <p> - {lastName}</p>
+                <div> Last name:
+                    <p>😜 {data?.data?.user.lastName}</p>
                 </div>
-                <div>Nickname:
-                    <p> - {nickname}</p>
+                <div> Nickname:
+                    <p>😱 {data?.data?.user.nickname}</p>
                 </div>
             </ProfileContainer>
         </Container>

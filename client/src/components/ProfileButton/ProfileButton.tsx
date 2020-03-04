@@ -1,12 +1,10 @@
 import React, {useContext, useState} from 'react';
 import UserContext, {User} from "../../context/UserContext";
 import {LinkButton, ProfileContainer, Text} from "./profileButton-style";
-import {Link, useParams} from "react-router-dom";
 import {Profile} from "../Profile/Profile";
 
 export const ProfileButton: React.FC = () => {
-    const context = useContext<Partial<User>>(UserContext);
-    const {id} = useParams();
+    const context = useContext<Partial<User | undefined>>(UserContext);
     const [isShow, setIsShow] = useState(false);
 
 
@@ -17,10 +15,9 @@ export const ProfileButton: React.FC = () => {
     return (
             <ProfileContainer>
                 <Text>
-                    Hello {context.nickname}, welcome!
+                    Hello {context?.data?.user.nickname}, welcome!
                 </Text>
                 <LinkButton>
-
                     <div onClick={() => onClick()}>
                         Click me to show/hide your profile
                     </div>
@@ -29,7 +26,6 @@ export const ProfileButton: React.FC = () => {
                             ? <Profile/>
                             : null
                     }
-
                 </LinkButton>
             </ProfileContainer>
     );

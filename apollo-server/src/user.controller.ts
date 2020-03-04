@@ -11,13 +11,8 @@ export interface CreateUserInput {
     password: string
 }
 
-interface ReturnValue {
-    message: string,
-    success: boolean
-}
-
 export const createNewUser = async (
-    {firstName, lastName, nickname, email, password}: CreateUserInput): Promise<ReturnValue | Error > => {
+    {firstName, lastName, nickname, email, password}: CreateUserInput): Promise<LoginPromise | Error > => {
     console.log("first name: " + firstName);
     const isExist = await UserModel.findOne({email});
     if (!isExist) {
@@ -32,7 +27,7 @@ export const createNewUser = async (
                 })
                     .then((data) => {
                         resolve( {
-                            message: "deksfjligjfdh",
+                            message: "User has been created.",
                             success: true,
                         });
                     })
@@ -57,8 +52,42 @@ export const getAllUsers = ({limit}: GetAllUsersInput) => {
 };
 
 export const getUserById = ({id}) => {
-    console.log(id);
     return UserModel.findById(id)
         .then((data: UserType) => data)
         .catch((err: Error) => { throw err})
+};
+
+export interface LoginUserByEmail {
+    email: string
+    password: string
+    id?: string
+}
+
+interface LoginPromise {
+    id?: string
+    success: boolean
+}
+
+export const loginUserByEmail = async ({email, password}: LoginUserByEmail): Promise<LoginPromise | Error> => {
+    return new Promise(async (resolve, reject) => {
+
+        UserModel.findOne({email}, (err, user: LoginUserByEmail) => {
+        if (err) {
+            return reject(err);
+        }
+        if (!user) {
+            return reject({message: 'no user with this email'});
+        }
+
+        bcrypt.compare(password, user.password, ((err1, same) => {
+            if (err1) {
+                return reject(err1);
+            }
+
+            return resolve({success: same, id: user.id});
+
+        }));
+    });
+});
+
 };

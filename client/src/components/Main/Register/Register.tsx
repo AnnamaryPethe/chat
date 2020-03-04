@@ -4,7 +4,6 @@ import {Form, Input} from 'antd';
 import '../MainPage/Main.css';
 import SuccessAlert from "../../Alert/SuccessAlert/SuccessAlert";
 import ErrorAlert from "../../Alert/ErrorAlert/ErrorAlert";
-import {reducer, initialState, Action, UserState} from "../../../reducer/reducer";
 import {Button} from "../Log_in/login.style";
 import gql from "graphql-tag";
 

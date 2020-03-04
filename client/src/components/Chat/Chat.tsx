@@ -27,7 +27,7 @@ const Chat: React.FC<Props> = ({location}) => {
     const [messages, setMessages] = React.useState<IMessage[]>([]);
     const [names, setNames] = React.useState<string[]>([]);
     const ENDPOINT = 'localhost:8000';
-    const nickname = useContext<Partial<User>>(UserContext);
+    const context = useContext<Partial<User | undefined>>(UserContext);
 
     React.useEffect(() => {
         const {name, room} = queryString.parse(location.search);
@@ -68,7 +68,7 @@ const Chat: React.FC<Props> = ({location}) => {
     return(
         <div data-vide-bg="background2">
             <div className="vid-container">
-                {/*<h3>Let's chat {nickname}</h3>*/}
+                <h3>Let's go to chat {context?.data?.user.nickname}</h3>
                 <Video className="background-video" loop autoPlay >
                     <source src={video} type="video/mp4" />
                 </Video>

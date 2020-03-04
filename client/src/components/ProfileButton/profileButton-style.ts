@@ -25,10 +25,10 @@ export const Text = styled.h2({
 
 export const LinkButton = styled.div({
     background: '#e91e63',
-    height: '40px',
+    height: '80px',
     padding: '10px',
     boxSizing: 'border-box',
-    width: '40%',
+    width: '50%',
     border: '1px solid rgb(255, 255, 255)',
     color: 'rgb(255, 255, 255)',
     cursor: 'pointer',

@@ -4,7 +4,7 @@ import backgroundVideo from '../../video/background.mp4'
 import io from 'socket.io-client';
 import Rooms from "../Rooms/Rooms";
 import {JoinContainer, Video, Input, Button, DivBody, JoinContainerH1, JoinInput} from './dashboard-style'
-import {User, UserContext} from '../../context/UserContext';
+import {User} from '../../context/UserContext';
 import {ProfileButton} from "../ProfileButton/ProfileButton";
 
 
@@ -46,9 +46,6 @@ const Dashboard: React.FC<User> = () => {
     return (
         <div>
             <ProfileButton/>
-            <Button>
-                <p>If you are sure, click button to log out!</p>
-            </Button>
             <DivBody>
                 <div>
                     <div data-vide-bg="background">

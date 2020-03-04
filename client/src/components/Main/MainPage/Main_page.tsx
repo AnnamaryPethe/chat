@@ -28,16 +28,6 @@ const {TabPane} = Tabs;
 
 
 class Main_page extends React.Component<{}, {}> {
-    state = {
-        user: {
-            firstName: '',
-            lastName: '',
-            nickname: '',
-            email: '',
-            password: ''
-        }
-    };
-
 
     render() {
         const {Content} = Layout;

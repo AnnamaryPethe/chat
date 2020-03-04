@@ -1,30 +1,35 @@
-import React, {useEffect, useState} from "react";
-import {useHistory, useParams} from "react-router-dom";
-import axios from 'axios';
-import UserContext from "./UserContext";
+import React, {useEffect} from "react";
+import {useHistory} from "react-router-dom";
+import UserContext, {User} from "./UserContext";
+import {useQuery} from "@apollo/react-hooks";
+import gql from "graphql-tag";
+
+
+interface UserId {
+    id: string
+}
+
+const GET_USER_ID = gql`
+    query user($id: ID) {
+        user(id: $id) {
+            id
+            firstName
+            lastName
+            nickname
+      }  
+}
+`;
 
 const Provider: React.FC = (props) => {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [nickname, setNickname] = useState("");
-    const [userId, setId] = useState("");
+
     const history = useHistory();
+    const id = parseURL(history.location.pathname);
+    const {data} = useQuery<User, UserId>(GET_USER_ID, {variables: {id: id}}) as Partial<User>;
+    console.log(data);
 
-    useEffect(() => {
-        const id = parseURL(history.location.pathname);
-        axios.get(`http://localhost:8000/user/${id}`,)
-            .then(res => {
-                console.log('user fetch data: ' + res.data);
-                setFirstName(res.data.firstName);
-                setLastName(res.data.lastName);
-                setNickname(res.data.nickname);
-                setId(res.data.id);
-
-            });
-    });
 
     return(
-        <UserContext.Provider value={{firstName, lastName, nickname, userId}}>
+        <UserContext.Provider value={{data}}>
             {props.children}
         </UserContext.Provider>
     )

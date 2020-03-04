@@ -32,6 +32,17 @@ export const typeDefs: DocumentNode = gql`
     
     type Mutation {
         createUser(data: CreateUserInput): Response
+        loginUser(data: LoginInput): LoginResponse
     }
-   
+    
+    input LoginInput {
+        email: String
+        password: String
+    }
+    
+    type LoginResponse {
+        id: ID
+        success: Boolean
+    }
+        
 `;
