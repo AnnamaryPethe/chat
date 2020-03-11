@@ -1,7 +1,7 @@
 import React from 'react';
 import {Register} from "../Register/Register";
 import {Tabs, Card,} from 'antd';
-import {Log_in} from "../Log_in/Log_in";
+import {Login} from "../Log_in/Log_in";
 import {Layout} from 'antd';
 
 import './Main.css'
@@ -65,7 +65,7 @@ class Main_page extends React.Component<{}, {}> {
                                             >Join us! Log in or sign in to chat!</StyleH3>
                                             <Tabs type="card">
                                                 <TabPane tab="LogIn" key="1">
-                                                    <Log_in/>
+                                                    <Login/>
                                                 </TabPane>
                                                 <TabPane tab="Registration" key="2">
                                                     <Register />

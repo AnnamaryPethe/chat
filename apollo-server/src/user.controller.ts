@@ -11,83 +11,64 @@ export interface CreateUserInput {
     password: string
 }
 
+
+
 export const createNewUser = async (
-    {firstName, lastName, nickname, email, password}: CreateUserInput): Promise<LoginPromise | Error > => {
+    {firstName, lastName, nickname, email, password}: CreateUserInput)=> {
     console.log("first name: " + firstName);
     const isExist = await UserModel.findOne({email});
     if (!isExist) {
-        return new Promise(async (resolve, reject) => {
-            await bcrypt.hash(password, SALT_AROUND, ((err, encrypted) => {
-                if (err) {
-                    return reject(err);
-                }
-                password = encrypted;
-                UserModel.create({
-                    firstName, lastName, nickname, email, password
-                })
-                    .then((data) => {
-                        resolve( {
-                            message: "User has been created.",
-                            success: true,
-                        });
-                    })
-                    .catch((err: Error) => {throw err});
-            }));
-        })
+        password = await bcrypt.hash(password, SALT_AROUND);
+        await UserModel.create({
+            firstName, lastName, nickname, email, password
+        });
+        return {
+            message: "User has been created.",
+            success: true
+        };
     }
-    else {
-        return Promise.reject('This email address is already exist. Please try it again.');
-    }
-};
-
-export interface GetAllUsersInput {
-    limit?: number
-}
-
-export const getAllUsers = ({limit}: GetAllUsersInput) => {
-    return UserModel.find({})
-        .limit(limit ? limit : 0)
-        .then((data: UserType[]) => data)
-        .catch((err: Error) => { throw err})
-};
-
-export const getUserById = ({id}) => {
-    return UserModel.findById(id)
-        .then((data: UserType) => data)
-        .catch((err: Error) => { throw err})
-};
-
-export interface LoginUserByEmail {
-    email: string
-    password: string
-    id?: string
-}
-
-interface LoginPromise {
-    id?: string
-    success: boolean
-}
-
-export const loginUserByEmail = async ({email, password}: LoginUserByEmail): Promise<LoginPromise | Error> => {
-    return new Promise(async (resolve, reject) => {
-
-        UserModel.findOne({email}, (err, user: LoginUserByEmail) => {
-        if (err) {
-            return reject(err);
+    else
+        {
+            return {message: 'This email address is already exist. Please try it again.',
+                    success: false};
         }
+    }
+    ;
+
+    export interface GetAllUsersInput {
+        limit?: number
+    }
+
+    export const getAllUsers = ({limit}: GetAllUsersInput) => {
+        return UserModel.find({})
+            .limit(limit ? limit : 0)
+            .then((data: UserType[]) => data)
+            .catch((err: Error) => {
+                throw err
+            })
+    };
+
+    export const getUserById = ({id}) => {
+        return UserModel.findById(id)
+            .then((data: UserType) => data)
+            .catch((err: Error) => {
+                throw err
+            })
+    };
+
+    export interface LoginUserByEmail {
+        email: string
+        password: string
+        id?: string
+    }
+
+
+    export const loginUserByEmail = async ({email, password}: LoginUserByEmail) => {
+        const user = await UserModel.findOne({email});
         if (!user) {
-            return reject({message: 'no user with this email'});
+            return {message: 'no user with this email'};
         }
+        const same = await bcrypt.compare(password, user.password);
+        return {success: same, id: user.id};
 
-        bcrypt.compare(password, user.password, ((err1, same) => {
-            if (err1) {
-                return reject(err1);
-            }
-
-            return resolve({success: same, id: user.id});
-
-        }));
-    });
-});
-
-};
+    };

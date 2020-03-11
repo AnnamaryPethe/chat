@@ -1,13 +1,21 @@
 import React, {FormEvent, useState} from 'react';
-
-import {Form, Input} from 'antd';
+import {
+    Form,
+    Input,
+    Tooltip,
+    Icon,
+    Checkbox,
+    Button,
+} from 'antd';
 import '../MainPage/Main.css';
 import SuccessAlert from "../../Alert/SuccessAlert/SuccessAlert";
 import ErrorAlert from "../../Alert/ErrorAlert/ErrorAlert";
-import {Button} from "../Log_in/login.style";
 import gql from "graphql-tag";
-
 import {useMutation} from "react-apollo-hooks";
+
+import {FormComponentProps} from "antd/lib/form";
+
+type LoginFormProps = FormComponentProps;
 
 interface User {
     id?: string
@@ -32,94 +40,171 @@ const POST_NEW_USER_MUTATION = gql`
    }
 `;
 
-export const Register: React.FC = () => {
+export const Register_: React.FC<LoginFormProps> = (props: LoginFormProps): JSX.Element => {
 
     const [isSuccess, setSuccess] = useState<boolean | undefined>();
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [nickname, setNickname] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [confirmDirty, setConfirm] = useState(false);
     const [createUser] = useMutation<{ createUser: Response }, { data: User }>(POST_NEW_USER_MUTATION);
 
-    const clearState = () => {
-        setFirstName("");
-        setLastName("");
-        setNickname("");
-        setEmail("");
-        setPassword("");
+    const compareToFirstPassword = (rule: any, value: any, callback: any) => {
+        const {form} = props;
+        if (value && value !== form.getFieldValue('password')) {
+            callback('Two passwords that you enter is inconsistent!');
+        } else {
+            callback();
+        }
+    };
+
+    const validateToNextPassword = (rule: any, value: any, callback: any) => {
+        const {form} = props;
+        if (value && confirmDirty) {
+            form.validateFields(['confirm'], {force: true});
+        }
+        callback();
+    };
+
+    const handleConfirmBlur = (e: any) => {
+        const {value} = e.target;
+        setConfirm(confirmDirty || !!value);
+    };
+
+    const clear = () => {
+        form.resetFields();
     };
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        createUser({
-            variables: {
-                data: {
-                    firstName,
-                    lastName,
-                    nickname,
-                    email,
-                    password
+        const {form} = props;
+        try {
+            form.validateFieldsAndScroll(async (err, values) => {
+                if (!err) {
+                    console.log('Received values of form: ', values);
                 }
-            }
-        }).then(res => {
-            clearState();
-            console.log(res.data?.createUser.success);
-            setSuccess(res.data?.createUser.success)
-        })
-            .catch(err => {
-                console.log(err);
+                const res = await createUser({
+                    variables: {
+                        data: {
+                            firstName: values.firstName,
+                            lastName: values.lastName,
+                            nickname: values.nickname,
+                            email: values.email,
+                            password: values.password
+                        }
+                    }
+                });
+                const {success} = res.data?.createUser as Response;
+                setSuccess(success);
+                clear();
             })
+        } catch (err) {
+            console.log(err);
+        }
     };
 
+    const tailFormItemLayout = {
+        wrapperCol: {
+            xs: {
+                span: 24,
+                offset: 0,
+            },
+            sm: {
+                span: 16,
+                offset: 8,
+            },
+        },
+    };
+
+    const {form} = props;
+    const {getFieldDecorator} = form;
     return (
         <div>
             <hr/>
             {isSuccess === true ? <SuccessAlert/> : null}
             {isSuccess === false ? <ErrorAlert/> : null}
-            <form onSubmit={handleSubmit}>
-                <Form.Item label="First name: " className="form-size">
-                    <Input type="text" placeholder="First name" name="firstName" value={firstName}
-                           onChange={e => {
-                               setFirstName(e.target.value)
-                           }}
-                           required={true}
-                    />
+            <Form onSubmit={handleSubmit} className="login-form">
+                <Form.Item label="firstName">
+                    {getFieldDecorator('firstName', {
+                        rules: [
+                            {
+                                required: true,
+                                message: 'Please input your first name!',
+                            },
+                        ],
+                    })(<Input/>)}
                 </Form.Item>
+                <Form.Item label="lastName">
+                    {getFieldDecorator('lastName', {
+                        rules: [
+                            {
+                                required: true,
+                                message: 'Please input your last name!',
+                            },
+                        ],
+                    })(<Input/>)}
+                </Form.Item>
+                <Form.Item label="E-mail">
+                    {getFieldDecorator('email', {
+                        rules: [
+                            {
+                                type: 'email',
+                                message: 'The input is not valid E-mail!',
+                            },
+                            {
+                                required: true,
+                                message: 'Please input your E-mail!',
+                            },
+                        ],
+                    })(<Input/>)}
+                </Form.Item>
+                <Form.Item label="Password" hasFeedback>
+                    {getFieldDecorator('password', {
+                        rules: [
+                            {
+                                required: true,
+                                message: 'Please input your password!',
+                            },
+                            {
+                                validator: validateToNextPassword,
+                            },
+                        ],
+                    })(<Input.Password/>)}
+                </Form.Item>
+                <Form.Item label="Confirm Password" hasFeedback>
+                    {getFieldDecorator('confirm', {
+                        rules: [
+                            {
+                                required: true,
+                                message: 'Please confirm your password!',
+                            },
+                            {
+                                validator: compareToFirstPassword,
+                            },
+                        ],
+                    })(<Input.Password onBlur={handleConfirmBlur}/>)}
+                </Form.Item>
+                <Form.Item
+                    label={
+                        <span>
+                Nickname&nbsp;
+                            <Tooltip title="What do you want others to call you?">
+                <Icon type="question-circle-o"/>
+              </Tooltip>
+            </span>
+                    }
+                >
+                    {getFieldDecorator('nickname', {
+                        rules: [{required: true, message: 'Please input your nickname!', whitespace: true}],
+                    })(<Input/>)}
+                </Form.Item>
+                <Form.Item {...tailFormItemLayout}>
+                    <Button type="primary" htmlType="submit">
+                        Register
+                    </Button>
+                </Form.Item>
+            </Form>
 
-                <Form.Item label="Last name: " className="form-size">
-                    <Input type="text" placeholder="First name" name="lastName" value={lastName}
-                           onChange={e => setLastName(e.target.value)}
-                           required={true}/>
-                </Form.Item>
-
-                <Form.Item label="Nickname: " className="form-size">
-                    <Input type="text" placeholder="Last name" name="nickname" value={nickname}
-                           onChange={e => {
-                               setNickname(e.target.value)
-                           }}
-                           required={true}/>
-                </Form.Item>
-
-                <Form.Item label="E-mail:" className="form-size">
-                    <Input type="email" placeholder="Email address" name="email" value={email} onChange={e => {
-                        setEmail(e.target.value)
-                    }}
-                           required={true}/>
-                </Form.Item>
-
-                <Form.Item label="Password:" className="form-size">
-                    <Input type="password" placeholder="Password" name="password" value={password}
-                           onChange={e => {
-                               setPassword(e.target.value)
-                           }}
-                           required={true}/>
-                </Form.Item>
-                <Button type="submit">Registration</Button>
-            </form>
         </div>
 
     )
-
-
 };
+
+export const Register = Form.create()(Register_);

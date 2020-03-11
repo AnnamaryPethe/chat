@@ -21,7 +21,6 @@
     "@types/socket.io": "^2.1.4",
     "@types/socket.io-client": "^1.4.32",
     "@types/styled-components": "^4.4.2",
-    "ant-design-pro": "^2.3.2",
     "antd": "^3.26.7",
     "apollo-boost": "^0.4.7",
     "apollo-cache-inmemory": "^1.6.5",
