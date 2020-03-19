@@ -30,7 +30,7 @@ const Message: React.FC<Props> = ({message:  {user, text}, name}) => {
     return(
         isSendByCurrentUser ? (
             <MessageContainerJustifyEnd >
-                <SentTextPr10 >{trimmedName}</SentTextPr10>
+                <SentTextPr10 > {trimmedName} </SentTextPr10>
                 <MessageBoxBackgroundBlue >
                     <MessageTextColorWhite >{text}</MessageTextColorWhite>
                 </MessageBoxBackgroundBlue>

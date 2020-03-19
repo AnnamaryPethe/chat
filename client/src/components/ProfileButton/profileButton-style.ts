@@ -8,7 +8,6 @@ export const ProfileContainer = styled.div`
     width: 100%;
     z-index: 1;
     position: relative;
-    
     width: '20px';
     padding: '60px 40px';
     // background: rgb(146, 146, 201);
@@ -28,7 +27,7 @@ export const LinkButton = styled.div({
     height: '80px',
     padding: '10px',
     boxSizing: 'border-box',
-    width: '50%',
+    width: '200px',
     border: '1px solid rgb(255, 255, 255)',
     color: 'rgb(255, 255, 255)',
     cursor: 'pointer',

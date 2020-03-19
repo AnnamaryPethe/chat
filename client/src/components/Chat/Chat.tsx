@@ -60,6 +60,7 @@ const Chat: React.FC<Props> = ({location}) => {
 
     const sendMessage = (event: any) => {
         event.preventDefault();
+        console.log(location.search);
         if (message) {
             socket.emit('sendMessage', message, () => setMessage(''));
         }

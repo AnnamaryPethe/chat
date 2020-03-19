@@ -67,11 +67,11 @@ const Dashboard: React.FC<User> = () => {
                                             <Button type="submit">Join</Button>
                                         </Link>
                                     </JoinInput>
-                                    <Rooms rooms={rooms}/>
                                 </JoinInput>
                                 <script src="https://code.jquery.com/jquery-3.4.1.js"/>
                                 <script src="vide/jquery.vide.min.js"/>
                             </JoinContainer>
+                            <Rooms rooms={rooms}/>
                         </div>
                     </div>
                 </div>

@@ -1,21 +1,19 @@
 import React from 'react';
-import {H3, Li, RoomBox} from "./rooms-style";
+import {H3, Li, RoomBoxDiv} from "./rooms-style";
 
-class Rooms extends React.Component<{ rooms: string[] }> {
-
-    render() {
-        let {rooms} = this.props;
-        return (
-            <div>
-                <RoomBox>
-                    <H3 >Active rooms:</H3>
-                    <div>
-                        {rooms.map((room: string, i: number) => <Li key={i}> {room} </Li>)}
-                    </div>
-                </RoomBox>
-            </div>
-        );
-    }
+interface Props {
+    rooms: string[]
 }
+
+export const Rooms: React.FC<Props> = ({rooms}) => {
+        return (
+            <RoomBoxDiv>
+                <H3 >Active rooms:</H3>
+                <div>
+                    {rooms.map((room: string, i: number) => <Li key={i}> {room} </Li>)}
+                </div>
+            </RoomBoxDiv>
+        );
+};
 
 export default Rooms;

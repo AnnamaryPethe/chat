@@ -1,5 +1,6 @@
 import React from "react";
 import {DivForm, InputStyle, SendButton} from "./message_input-style";
+import PropTypes from 'prop-types';
 
 export interface InputProps {
     message: string,

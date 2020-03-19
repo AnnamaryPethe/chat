@@ -8,6 +8,7 @@ import './Main.css'
 import video from "../../../video/background3.mp4";
 
 import styled from '@emotion/styled'
+import {Text} from "../../Text/Text";
 
 let StyleH3 = styled.h3({
     color: '#fff',

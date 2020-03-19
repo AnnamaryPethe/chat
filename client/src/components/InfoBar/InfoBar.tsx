@@ -1,15 +1,16 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import closeIcon from '../../icons/closeIcon.png'
 import onlineIcon from '../../icons/onlineIcon.png'
 import {InfoBarStyle, LeftInnerContainer, OnlineIcon, RightInnerContainer} from "./infobar-style";
-import {Link, useParams} from "react-router-dom";
+import {Link, MemoryRouter} from "react-router-dom";
+import UserContext, {User} from "../../context/UserContext";
 
 interface Props {
-    room: string
+    room?: string
 }
 
-const InfoBar: React.FC<Props> = ({room}) => {
-    const {id} = useParams();
+export const InfoBar: React.FC<Props> = ({room}) => {
+    const id = useContext<Partial<User | undefined>>(UserContext);
     return (
         <InfoBarStyle>
             <LeftInnerContainer>
