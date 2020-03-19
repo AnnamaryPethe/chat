@@ -1,8 +1,7 @@
 import React from 'react';
-
 import onlineIcon from '../../icons/onlineIcon.png';
+import {ActiveContainer, ActiveImage, ActiveItem, TextContainer, TextH1} from "./user_container-style";
 
-import './Users_container.css';
 
 export interface IUsersProps {
     users: string[]
@@ -12,27 +11,27 @@ class UsersContainer extends React.Component<IUsersProps, {}> {
     render() {
         let {users} = this.props;
         return (
-            <div className="textContainer">
+            <TextContainer className="textContainer">
                 {
                     users
                         ? (
                             <div>
-                                <h1>People currently chatting:</h1>
-                                <div className="activeContainer">
+                                <TextH1>People currently chatting:</TextH1>
+                                <ActiveContainer className="activeContainer">
                                     <h2>
                                         {users.map((name) => (
-                                            <div key={name} className="activeItem">
+                                            <ActiveItem key={name} className="activeItem">
                                                 {name}
-                                                <img alt="Online Icon" src={onlineIcon}/>
-                                            </div>
+                                                <ActiveImage alt="Online Icon" src={onlineIcon}/>
+                                            </ActiveItem>
                                         ))}
                                     </h2>
-                                </div>
+                                </ActiveContainer>
                             </div>
                         )
                         : null
                 }
-            </div>
+            </TextContainer>
         );
     }
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import Message, {IMessage} from '../Message/Message';
-
-import './Messages.css';
+import {Div} from './messages-style'
 
 // import ScrollToBottom from 'react-scroll-to-bottom';
+
 
 interface IMessages {
     messages: IMessage[],
@@ -11,9 +11,9 @@ interface IMessages {
 }
 
 const Messages: React.FC<IMessages> = ({ messages, name}) => (
-    <div className="messages">
+    <Div>
         {messages.map((message: IMessage, i: number) => <div key={i}><Message message={message} name={name}/></div>)}
-    </div>
+    </Div>
 );
 
 export default Messages;

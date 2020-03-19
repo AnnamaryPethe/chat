@@ -1,6 +1,12 @@
 import React from 'react'
+import {
+    MessageBoxBackgroundBlue, MessageBoxBackgroundLight,
+    MessageContainerJustifyEnd,
+    MessageContainerJustifyStart, MessageTextColorDark,
+    MessageTextColorWhite, SentTextPl10,
+    SentTextPr10
+} from "./message-style";
 // import ReactEmoji from 'react-emoji';
-import './Message.css'
 
 export interface IMessage {
     user: string,
@@ -11,7 +17,6 @@ export interface Props {
     message: IMessage
     name: string
 }
-
 
 const Message: React.FC<Props> = ({message:  {user, text}, name}) => {
     let isSendByCurrentUser: boolean = false;
@@ -24,19 +29,19 @@ const Message: React.FC<Props> = ({message:  {user, text}, name}) => {
 
     return(
         isSendByCurrentUser ? (
-            <div className="messageContainer justifyEnd">
-                <p className="sentText pr-10">{trimmedName}</p>
-                <div className="messageBox backgroundBlue">
-                    <p className="messageText colorWhite">{text}</p>
-                </div>
-            </div>
+            <MessageContainerJustifyEnd >
+                <SentTextPr10 > {trimmedName} </SentTextPr10>
+                <MessageBoxBackgroundBlue >
+                    <MessageTextColorWhite >{text}</MessageTextColorWhite>
+                </MessageBoxBackgroundBlue>
+            </MessageContainerJustifyEnd>
         ) : (
-            <div className="messageContainer justifyStart">
-                <div className="messageBox backgroundLight">
-                    <p className="messageText colorDark">{text}</p>
-                </div>
-                <p className="sentText pl-10">{user}</p>
-            </div>
+            <MessageContainerJustifyStart >
+                <MessageBoxBackgroundLight >
+                    <MessageTextColorDark >{text}</MessageTextColorDark>
+                </MessageBoxBackgroundLight>
+                <SentTextPl10 >{user}</SentTextPl10>
+            </MessageContainerJustifyStart>
         )
     )
 

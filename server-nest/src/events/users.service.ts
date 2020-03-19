@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { User } from './interfaces/events.interfaces'
+import { User } from './interfaces/events.interfaces';
 
 @Injectable()
 export class UsersService {
@@ -11,11 +11,11 @@ export class UsersService {
 
     public add(data: User) {
         this.users.push(data);
-        console.log('Added: ', this.users);
+        // console.log('Added: ', this.users);
     }
 
     public isValidName(data: User): boolean {
-        for(const user of this.users) {
+        for (const user of this.users) {
             if (user.name === data.name && user.room === data.room) {
                 return false;
             }
@@ -23,10 +23,11 @@ export class UsersService {
         return true;
     }
 
-    public removeUser(data: User) {
-        const index = this.users.findIndex(user => user.id === data.id);
+    public removeUser(id: string) {
 
+        const index = this.users.findIndex(user => user.id === id );
         delete this.users[index];
+
     }
 
     public getUser(id: string): User {
@@ -38,7 +39,7 @@ export class UsersService {
     }
 
     public getAllRooms(): Set<string> {
-        console.log('rooms', this.users);
+        // console.log('rooms', this.users);
         const rooms: Set<string> = new Set<string>();
         for (const user of this.users) {
             rooms.add(user.room);
@@ -48,13 +49,11 @@ export class UsersService {
 
     public getAllUsersInRoom(room: string): Set<any> {
         const usersList = new Set();
-        for (let user of this.users) {
-            if(user.room === room) {
+        for (const user of this.users) {
+            if (user.room === room) {
                 usersList.add(user.name);
             }
         }
         return usersList;
     }
-
-
 }

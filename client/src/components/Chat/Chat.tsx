@@ -2,17 +2,21 @@ import * as React from 'react';
 import queryString from 'query-string';
 import io from 'socket.io-client';
 
-import './Chat.css';
 import video from "../../video/background2.mp4"
 import InfoBar from "../InfoBar/InfoBar";
 import Messages from "../Messages/Messages";
 import InputBox from "../Message_input/Message_input";
 import UsersContainer from "../Users_container/Users_container";
 import {IMessage} from "../Message/Message";
+import {Video, Container, OuterContainer} from './chat-style'
+import {useContext} from "react";
+import UserContext, {User} from "../../context/UserContext";
+
 
 interface Props {
     location: any
 }
+
 
 let socket: SocketIOClient.Socket;
 
@@ -23,6 +27,7 @@ const Chat: React.FC<Props> = ({location}) => {
     const [messages, setMessages] = React.useState<IMessage[]>([]);
     const [names, setNames] = React.useState<string[]>([]);
     const ENDPOINT = 'localhost:8000';
+    const context = useContext<Partial<User | undefined>>(UserContext);
 
     React.useEffect(() => {
         const {name, room} = queryString.parse(location.search);
@@ -46,14 +51,16 @@ const Chat: React.FC<Props> = ({location}) => {
         });
 
         return () => {
-            socket.emit('disconnect');
+            socket.emit('disconnect', {name, room}, () => {
 
-          //  socket.off();
+            });
         }
     }, [messages]);
 
+
     const sendMessage = (event: any) => {
         event.preventDefault();
+        console.log(location.search);
         if (message) {
             socket.emit('sendMessage', message, () => setMessage(''));
         }
@@ -62,17 +69,18 @@ const Chat: React.FC<Props> = ({location}) => {
     return(
         <div data-vide-bg="background2">
             <div className="vid-container">
-                <video id="background-video" loop autoPlay >
+                <h3>Let's go to chat {context?.data?.user.nickname}</h3>
+                <Video className="background-video" loop autoPlay >
                     <source src={video} type="video/mp4" />
-                </video>
-                <div className="outerContainer">
-                    <div className="container">
+                </Video>
+                <OuterContainer>
+                    <Container>
                         <InfoBar room={room}/>
                         <Messages messages={messages} name={name}/>
                         <InputBox message={message as string} setMessage={setMessage} sendMessage={sendMessage}/>
-                    </div>
+                    </Container>
                     <UsersContainer users={names as string[]}/>
-                </div>
+                </OuterContainer>
                 <script src="https://code.jquery.com/jquery-3.4.1.js"/>
                 <script src="vide/jquery.vide.min.js"/>
             </div>

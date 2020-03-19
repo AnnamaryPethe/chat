@@ -1,22 +1,19 @@
-
 import React from 'react';
-import './Rooms.css'
-// import ScrollToBottom from "react-scroll-to-bottom";
+import {H3, Li, RoomBoxDiv} from "./rooms-style";
 
-class Rooms extends React.Component<{ rooms: string[] }> {
-    render() {
-        let {rooms} = this.props;
-        return (
-            <div>
-                <div className="roomsBox">
-                    <h3>Active rooms:</h3>
-                    <div>
-                        {rooms.map((room: string, i: number) => <li key={i}> {room} </li>)}
-                    </div>
-                </div>
-            </div>
-        );
-    }
+interface Props {
+    rooms: string[]
 }
+
+export const Rooms: React.FC<Props> = ({rooms}) => {
+        return (
+            <RoomBoxDiv>
+                <H3 >Active rooms:</H3>
+                <div>
+                    {rooms.map((room: string, i: number) => <Li key={i}> {room} </Li>)}
+                </div>
+            </RoomBoxDiv>
+        );
+};
 
 export default Rooms;

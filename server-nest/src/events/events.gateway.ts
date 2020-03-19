@@ -6,9 +6,9 @@ import {
     WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket} from 'socket.io';
-import {NameRoomDto } from './dto/name-room-dto'
-import {UsersService} from "./users.service";
-import {ErrorResponse, User} from "./interfaces/events.interfaces";
+import {NameRoomDto } from './dto/name-room-dto';
+import {UsersService} from './users.service';
+import {ErrorResponse, User} from './interfaces/events.interfaces';
 
 @WebSocketGateway()
 export class EventsGateway {
@@ -20,7 +20,7 @@ export class EventsGateway {
     @SubscribeMessage('checkName')
     checkName(@MessageBody() data: NameRoomDto): string | ErrorResponse {
         if (!this.usersService.isValidName(data)) {
-            return { error: "Username is taken. Please choose other name." }
+            return { error: 'Username is taken. Please choose other name.' };
         }
         return '';
     }
@@ -31,14 +31,14 @@ export class EventsGateway {
         const user: User = {
             id: client.id,
             name: data.name,
-            room: data.room
+            room: data.room,
         };
 
         this.usersService.add(user);
 
         client.join(user.room);
 
-        const usersArray= this.usersService.getAllUsersInRoom(user.room);
+        const usersArray = this.usersService.getAllUsersInRoom(user.room);
 
         client.emit('message', { user: 'admin', text: `${user.name}, welcome to the room ${user.room}`});
         client.broadcast.to(user.room).emit('message', {user: 'admin', text: `${user.name} has joined`});
@@ -56,16 +56,13 @@ export class EventsGateway {
     @SubscribeMessage('sendMessage')
     onSendMessage(@MessageBody() data: string,
                   @ConnectedSocket() client: Socket): string {
-        console.log(data);
+        // console.log(data);
         const user = this.usersService.getUser(client.id);
-        console.log(user);
+        // console.log(user);
 
         this.server.to(user.room).emit('message', { user: user.name, text: data });
         this.server.to(user.room).emit('roomData', {room: user.room, users: this.usersService.getUserInRoom(user.room)});
 
         return '';
     }
-
-
-
 }

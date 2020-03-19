@@ -1,0 +1,51 @@
+@import '~antd/dist/antd.css';
+
+.ant-card {
+    background: rgba(57, 57, 138, 0.22);
+    margin-left: 10px;
+    padding: 20px;
+}
+
+.ant-card-bordered {
+    width: 60%;
+    padding: 50px;
+    text-align: center;
+    font-size: 30px;
+    margin: 80px;
+    box-shadow: 0 15px 20px rgba(255, 255, 255, 0.59);
+}
+
+.ant-input {
+    padding: 20px;
+}
+
+.ant-tabs-tab {
+    color: rgb(14, 5, 41);
+    font-size: 20px;
+}
+
+.ant-card-head-title {
+    font-size: 30px;
+    color: #fbfbfb;
+}
+
+.ant-card-body {
+    margin: 20px;
+    padding: 50px;
+}
+
+.ant-btn-primary {
+    font-size: 25px;
+    border: 10px;
+
+}
+
+.page {
+    margin: 70px;
+    background: rgba(167, 100, 255, 0.61);
+}
+
+
+.form-size {
+    font-size: 20px
+}

@@ -1,5 +1,6 @@
 import React from "react";
-import './Message_input.css'
+import {DivForm, InputStyle, SendButton} from "./message_input-style";
+import PropTypes from 'prop-types';
 
 export interface InputProps {
     message: string,
@@ -7,17 +8,18 @@ export interface InputProps {
     setMessage: Function
 }
 
+
+
 const Input: React.FC<InputProps> = ({ setMessage, sendMessage, message}) => (
-    <div className="form">
-        <input
-            className="input"
+    <DivForm >
+        <InputStyle
             type="text"
             placeholder="Type a message..."
             value={message}
             onChange={event => setMessage(event.target.value)}
             onKeyPress={event => event.key ==='Enter' ? sendMessage(event) : null}/>
-        <button className="sendButton info" onClick={event => sendMessage(event)}>Send</button>
-    </div>
+        <SendButton onClick={event => sendMessage(event)}>Send</SendButton>
+    </DivForm>
 
 
 );
