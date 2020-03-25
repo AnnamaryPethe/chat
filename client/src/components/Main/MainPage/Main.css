@@ -2,17 +2,22 @@
 
 .ant-card {
     background: rgba(57, 57, 138, 0.22);
-    margin-left: 10px;
     padding: 20px;
 }
 
 .ant-card-bordered {
-    width: 60%;
-    padding: 50px;
+    width: 50%;
+    padding: 20px;
     text-align: center;
     font-size: 30px;
-    margin: 80px;
+    margin-left: 290px;
     box-shadow: 0 15px 20px rgba(255, 255, 255, 0.59);
+}
+
+.ant-card-body {
+    margin: 20px;
+    padding: 50px;
+    background: rgb(43, 40, 131);
 }
 
 .ant-input {
@@ -36,13 +41,16 @@
 
 .ant-btn-primary {
     font-size: 25px;
-    border: 10px;
+    border: 20px;
+    height: auto;
+}
 
+.ant-col-sm-offset-8 {
+    margin-left: 16%;
 }
 
 .page {
     margin: 70px;
-    background: rgba(167, 100, 255, 0.61);
 }
 
 

@@ -20,7 +20,8 @@ export const Container = styled.div({
     backgroundColor: 'rgba(0,0,255,0.5)',
     borderRadius: '8px',
     height: '75%',
-    width: '100%',
+    width: '500px',
+    maxWidth: '500px',
     '@media (min-width: 320px) and (max-width: 480px)': {
         width: '100%',
         height: '100%'

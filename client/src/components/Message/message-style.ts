@@ -46,7 +46,8 @@ export const MessageTextColorWhite = styled.p({
     float: 'left',
     fontSize: '1.1em',
     wordWrap: 'break-word',
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
+    margin: '0',
 });
 
 export const MessageBoxBackgroundLight = styled.div({
@@ -65,6 +66,7 @@ export const MessageTextColorDark = styled.p({
     fontSize: '1.1em',
     wordWrap: 'break-word',
     color: '#353535',
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
+    margin: '0',
 });
 

@@ -8,7 +8,6 @@ import './Main.css'
 import video from "../../../video/background3.mp4";
 
 import styled from '@emotion/styled'
-import {Text} from "../../Text/Text";
 
 let StyleH3 = styled.h3({
     color: '#fff',
@@ -35,8 +34,8 @@ class Main_page extends React.Component<{}, {}> {
         return (
             <div>
                 <Layout className="layout">
-                    <Content style={{ padding: 10 }}>
-                        <div style={{padding: 24, minHeight: 30}}>
+                    <Content>
+                        <div>
                             <div className="vid-container">
                                 <Video className="background-video" loop autoPlay>
                                     <source src={video} type="video/mp4"/>
@@ -44,25 +43,8 @@ class Main_page extends React.Component<{}, {}> {
                                 <div className="page">
                                     <div className="card-container">
                                         <Card
-                                            style={{
-                                            width: '50%',
-                                            paddingLeft: '40px',
-                                            textAlign: 'center',
-                                            fontSize: '20px',
-                                            margin: '300px',
-                                            padding: '20px',
-                                            backgroundImage: '#5529ff',
-                                        }} title="LET'S CHAT!"
-                                              bodyStyle={{
-                                                  background: '#5a4083'
-                                              }
-                                              }>
+                                         title="LET'S CHAT!">
                                             <StyleH3
-                                                style={{
-                                                    color: '#fff',
-                                                    fontSize: '35px',
-                                                }
-                                                }
                                             >Join us! Log in or sign in to chat!</StyleH3>
                                             <Tabs type="card">
                                                 <TabPane tab="LogIn" key="1">

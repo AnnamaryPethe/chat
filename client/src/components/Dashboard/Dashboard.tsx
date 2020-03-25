@@ -6,6 +6,7 @@ import Rooms from "../Rooms/Rooms";
 import {JoinContainer, Video, Input, Button, DivBody, JoinContainerH1, JoinInput} from './dashboard-style'
 import {User} from '../../context/UserContext';
 import {ProfileButton} from "../ProfileButton/ProfileButton";
+import {Logout} from "../Logout/Logout";
 
 
 let socket: SocketIOClient.Socket;
@@ -45,6 +46,7 @@ const Dashboard: React.FC<User> = () => {
 
     return (
         <div>
+            <Logout/>
             <ProfileButton/>
             <DivBody>
                 <div>

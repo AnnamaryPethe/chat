@@ -4,7 +4,6 @@ export const TextContainer = styled.div({
     display: 'flex',
     flexDirection: 'column',
     marginLeft: '160px',
-    color: 'white',
     height: '80%',
     justifyContent: 'space-between',
     '@media (min-width: 320px) and (max-width: 1200px)': {
@@ -20,7 +19,8 @@ export const ActiveContainer = styled.div({
 
 export const ActiveItem = styled.div({
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    color: 'white',
 });
 
 export const ActiveImage = styled.img({
@@ -28,5 +28,6 @@ export const ActiveImage = styled.img({
 });
 
 export const TextH1 = styled.h1({
-    marginBottom: '0'
+    marginBottom: '0',
+    color: 'white',
 });
